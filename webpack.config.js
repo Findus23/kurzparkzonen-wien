@@ -8,7 +8,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
     entry: './src/index.js',
     output: {
-        filename: 'build-[hash].js',
+        // filename: 'build-[hash].js',
+        filename: '[name].[hash].js',
+        chunkFilename: '[name].[hash].js',
         path: path.resolve(__dirname, 'dist'),
         crossOriginLoading: "anonymous"
     },
