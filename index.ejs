@@ -8,15 +8,17 @@
         <script type="text/javascript">
             var _paq = _paq || [];
             /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+            _paq.push(["setDoNotTrack", true]);
+            _paq.push(['setRequestMethod', 'POST']);
             _paq.push(['trackPageView']);
             _paq.push(['enableLinkTracking']);
             _paq.push(['enableHeartBeatTimer']);
             (function() {
-                var u="https://piwik.ferienhaus-schiltern.at/";
-                _paq.push(['setTrackerUrl', u+'piwik.php']);
-                // _paq.push(['setSiteId', '12']);
+                var u="https://matomo.lw1.at/";
+                _paq.push(['setTrackerUrl', u+'statistics.php']);
+                _paq.push(['setSiteId', '19']);
                 var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-                g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+                g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'statistics.js'; s.parentNode.insertBefore(g,s);
             })();
         </script>
         <!-- End Piwik Code -->
