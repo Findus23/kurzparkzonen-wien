@@ -1,14 +1,14 @@
 export function getPopupText(feature, type) {
     const prop = feature.properties;
     let lines = [];
-    if (type === "parkstreifen") {
+    if (type === "Kurzparkstreifen") {
         lines.push(prop.STRNAM + " " + (prop.GELTUNGSBEREICH ? prop.GELTUNGSBEREICH : ""));
     }
-    if (type === "anrainer") {
+    if (type === "AnrainerInnenparkplatz") {
         lines.push(prop.ADRESSE);
         lines.push(prop.STELLPL_ANZ + " Stellplätze");
         lines.push(prop.AUSNAHME_TXT);
-    } else if (type === "geltungsbereiche" || type === "berechtigungsZone") {
+    } else if (type === "Geltungsbereich" || type === "Berechtigungszone") {
         lines.push(prop.BEZEICHNUNG);
         if (prop.ANMERKUNG) {
             lines.push(prop.ANMERKUNG);
@@ -18,5 +18,5 @@ export function getPopupText(feature, type) {
         lines.push(prop.ZEITRAUM);
         lines.push(prop.DAUER);
     }
-    return lines.join("<br>");
+    return "<h2>" + type + "</h2>" + lines.join("<br>");
 }

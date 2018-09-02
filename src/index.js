@@ -31,16 +31,19 @@ document.addEventListener('DOMContentLoaded', function() {
         format: 'png',
         bounds: [[46.35877, 8.782379], [49.037872, 17.189532]]
     });
-    let blankLayer = L.tileLayer('').addTo(map);
+    let blankLayer = L.tileLayer('');
     let LeafIcon = L.Icon.extend({
         options: {
             iconAnchor: [16, 35],
             popupAnchor: [0, -35]
         }
     });
+    if (process.env.NODE_ENV === 'production') {
+        BasemapAT_basemap.addTo(map);
+    } else {
+        blankLayer.addTo(map);
+    }
 
-    let categories = {},
-        category;
 
     let mapLayers = {
         "Leer": blankLayer,
@@ -57,8 +60,6 @@ document.addEventListener('DOMContentLoaded', function() {
             '<a href="https://github.com/Findus23/POI-Schiltern" target="_blank">Source</a>' +
             ' | <a href="https://www.ferienhaus-schiltern.at/impressum/" target="_blank">Impressum und Datenschutz</a>';
     };
-    let overlays = {};
-    let categoryName, categoryArray, categoryLG;
 
     L.TopoJSON = L.GeoJSON.extend({
         addData: function(jsonData) {
@@ -101,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let parkstreifenLayer = new L.GeoJSON([], {
         style: parkstreifenStyle,
         onEachFeature: function(feature, layer) {
-            layer.bindPopup(getPopupText(feature, "parkstreifen"))
+            layer.bindPopup(getPopupText(feature, "Kurzparkstreifen"))
         }
     }).addTo(map);
     import (/* webpackChunkName: "parkstreifen" */"../processed/Kurzparkstreifen").then(parkstreifen => {
@@ -119,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let anrainerLayer = new L.GeoJSON([], {
         style: anrainerStyle,
         onEachFeature: function(feature, layer) {
-            layer.bindPopup(getPopupText(feature, "anrainer"))
+            layer.bindPopup(getPopupText(feature, "AnrainerInnenparkplatz"))
         }
     }).addTo(map);
     import (/* webpackChunkName: "anrainer" */"../processed/AnrainerInnenparkplätze").then(anrainer => {
@@ -129,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
         style: parkzonenStyle,
         pane: 'zonenPane',
         onEachFeature: function(feature, layer) {
-            layer.bindPopup(getPopupText(feature, "parkzonen"))
+            layer.bindPopup(getPopupText(feature, "Kurzparkzone"))
         }
     }).addTo(map);
     import (/* webpackChunkName: "parkzonen" */"../processed/Kurzparkzonen").then(parkzonen => {
@@ -142,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
         style: parkzonenStyle,
         pane: 'zonenPane',
         onEachFeature: function(feature, layer) {
-            layer.bindPopup(getPopupText(feature, "geltungsbereiche"))
+            layer.bindPopup(getPopupText(feature, "Geltungsbereich"))
         }
     });
     import (/* webpackChunkName: "geltungsbereiche" */"../processed/Geltungsbereiche").then(geltungsbereich => {
@@ -152,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
         style: parkzonenStyle,
         pane: 'zonenPane',
         onEachFeature: function(feature, layer) {
-            layer.bindPopup(getPopupText(feature, "berechtigungsZone"))
+            layer.bindPopup(getPopupText(feature, "Berechtigungszone"))
         }
     });
     import (/* webpackChunkName: "berechtigungsZone" */"../processed/Berechtigungszone").then(berechtigungsZone => {
