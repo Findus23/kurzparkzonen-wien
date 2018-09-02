@@ -30,8 +30,12 @@ dataFiles.forEach(filename => {
         geojson.meta.WEBLINK2 = feature.properties.WEBLINK2;
         delete feature.properties.WEITERE_INF;
         delete feature.properties.WEBLINK1;
+        delete feature.properties.WEBLINK_1;
         delete feature.properties.WEBLINK2;
         delete feature.properties.BEZIRK2;
+        delete feature.properties.OBJECTID;
+        delete feature.properties.PRB_ID;
+        delete feature.properties.FK_PRB;
         delete feature.id;
         delete feature.properties["SE_SDO_ROWID"];
     });
@@ -48,9 +52,13 @@ dataFiles.forEach(filename => {
 
     }
     if (filename.includes("zone") || filename.includes("Geltungsbereiche")) {
-        result = totopojson(geojson)
+        result = totopojson(geojson);
+        fs.writeFileSync(processedDir + nametype + ".structure.json", JSON.stringify(result.objects.foo.geometries[0], null, 2));
+
     } else {
-        result = simplify(geojson, 0.01)
+        result = simplify(geojson, 0.01);
+        fs.writeFileSync(processedDir + nametype + ".structure.json", JSON.stringify(result.features[0], null, 2));
+
     }
 
     fs.writeFileSync(processedDir + filename, JSON.stringify(result));
