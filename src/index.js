@@ -3,6 +3,7 @@ import "./style.css";
 import L from "leaflet";
 import * as topojson from "topojson-client";
 import {getPopupText} from "./popup";
+import * as tiles from "./tilelayers";
 import apiKey from "./apikey"; //optional
 require('leaflet.locatecontrol');
 
@@ -10,27 +11,7 @@ require('leaflet.locatecontrol');
 document.addEventListener('DOMContentLoaded', function() {
     let map = L.map('map').setView([48.203527523471344, 16.37383544767511], 12);
     window.map = map;
-    let OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
-    let Thunderforest_OpenCycleMap = L.tileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}', {
-        attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        apikey: apiKey,
-        maxZoom: 22
-    });
-    let Thunderforest_Outdoors = L.tileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey={apikey}', {
-        attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        apikey: apiKey,
-        maxZoom: 22
-    });  
-    let BasemapAT_basemap = L.tileLayer('https://maps{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.{format}', {
-        maxZoom: 20,
-        attribution: 'Datenquelle: <a href="https://www.basemap.at">basemap.at</a>',
-        subdomains: ["", "1", "2", "3", "4"],
-        format: 'png',
-        bounds: [[46.35877, 8.782379], [49.037872, 17.189532]]
-    });
+
     let blankLayer = L.tileLayer('');
     let LeafIcon = L.Icon.extend({
         options: {
@@ -47,10 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let mapLayers = {
         "Leer": blankLayer,
-        'Standard': OpenStreetMap_Mapnik,
-        "Wanderkarte": Thunderforest_Outdoors,
-        "Fahrradkarte": Thunderforest_OpenCycleMap,
-        "Basemap.at": BasemapAT_basemap
+        "Basemap.at": tiles.BasemapAT_basemap,
+        'Standard-OSM': tiles.OpenStreetMap_Mapnik,
+        "Wanderkarte": tiles.Thunderforest_Outdoors,
+        "Fahrradkarte": tiles.Thunderforest_OpenCycleMap,
+        "Öffi": tiles.Thunderforest_Transport,
+        "Schwarz-Weiß": tiles.Stamen_TonerLite,
     };
 
     let attribution = function() {
