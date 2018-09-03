@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     if (process.env.NODE_ENV === 'production') {
-        BasemapAT_basemap.addTo(map);
+        tiles.BasemapAT_basemap.addTo(map);
     } else {
         blankLayer.addTo(map);
     }
