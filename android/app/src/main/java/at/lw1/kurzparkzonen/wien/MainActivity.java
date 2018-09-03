@@ -4,14 +4,11 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -54,23 +51,13 @@ public class MainActivity extends AppCompatActivity {
         rootView = (CoordinatorLayout) findViewById(R.id.action_bar_root);
 
         if (Build.VERSION.SDK_INT >= 23) {
-            // Marshmallow+ Permission APIs
-            handleMarshMallow();
+            handleMarshMallowAndAbove();
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (0 != (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE)) {
-                WebView.setWebContentsDebuggingEnabled(true);
-            }
+        if (0 != (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE)) {
+            WebView.setWebContentsDebuggingEnabled(true);
         }
-        webView.setInitialScale(1);
-        webView.getSettings().setLoadWithOverviewMode(true);
-        webView.getSettings().setUseWideViewPort(true);
-        webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-        webView.setScrollbarFadingEnabled(false);
-
-        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setBuiltInZoomControls(false);
         webView.setWebViewClient(new GeoWebViewClient());
         // Below required for geolocation
         webView.getSettings().setJavaScriptEnabled(true);
@@ -98,24 +85,6 @@ public class MainActivity extends AppCompatActivity {
             // Always grant permission since the app itself requires location
             // permission and the user has therefore already granted it
             callback.invoke(origin, true, false);
-
-            //            final boolean remember = false;
-            //            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            //            builder.setTitle("Locations");
-            //            builder.setMessage("Would like to use your Current Location ")
-            //                    .setCancelable(true).setPositiveButton("Allow", new DialogInterface.OnClickListener() {
-            //                public void onClick(DialogInterface dialog, int id) {
-            //                    // origin, allow, remember
-            //                    callback.invoke(origin, true, remember);
-            //                }
-            //            }).setNegativeButton("Don't Allow", new DialogInterface.OnClickListener() {
-            //                public void onClick(DialogInterface dialog, int id) {
-            //                    // origin, allow, remember
-            //                    callback.invoke(origin, false, remember);
-            //                }
-            //            });
-            //            AlertDialog alert = builder.create();
-            //            alert.show();
         }
     }
 
@@ -129,28 +98,6 @@ public class MainActivity extends AppCompatActivity {
             view.loadUrl(url);
             return true;
         }
-
-        Dialog loadingDialog = new Dialog(MainActivity.this);
-
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            super.onPageStarted(view, url, favicon);
-            webViewPreviousState = PAGE_STARTED;
-
-            if (loadingDialog == null || !loadingDialog.isShowing())
-                loadingDialog = ProgressDialog.show(MainActivity.this, "",
-                        "Loading Please Wait", true, true,
-                        new DialogInterface.OnCancelListener() {
-
-                            @Override
-                            public void onCancel(DialogInterface dialog) {
-                                // do something
-                            }
-                        });
-
-            loadingDialog.setCancelable(false);
-        }
-
 
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
@@ -213,18 +160,6 @@ public class MainActivity extends AppCompatActivity {
             }
             super.onReceivedHttpError(view, request, errorResponse);
         }
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-
-            if (webViewPreviousState == PAGE_STARTED) {
-
-                if (null != loadingDialog) {
-                    loadingDialog.dismiss();
-                    loadingDialog = null;
-                }
-            }
-        }
     }
 
 
@@ -286,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    private void handleMarshMallow() {
+    private void handleMarshMallowAndAbove() {
         List<String> permissionsNeeded = new ArrayList<String>();
 
         final List<String> permissionsList = new ArrayList<String>();
@@ -335,8 +270,7 @@ public class MainActivity extends AppCompatActivity {
         if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
             permissionsList.add(permission);
             // Check for Rationale Option
-            if (!shouldShowRequestPermissionRationale(permission))
-                return false;
+            return shouldShowRequestPermissionRationale(permission);
         }
         return true;
     }
