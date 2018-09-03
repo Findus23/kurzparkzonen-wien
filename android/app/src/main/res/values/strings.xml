@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Kurzparkzonen Wien</string>
+    <string name="location_permission_reason">Um die aktuelle Position anzuzeigen, benötigt die App zugriff auf den Standort.</string>
+</resources>
