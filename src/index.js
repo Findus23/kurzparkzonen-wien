@@ -4,7 +4,7 @@ import L from "leaflet";
 import * as topojson from "topojson-client";
 import {getPopupText} from "./popup";
 import * as tiles from "./tilelayers";
-import apiKey from "./apikey"; //optional
+
 require('leaflet.locatecontrol');
 
 
