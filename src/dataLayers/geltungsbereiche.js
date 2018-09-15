@@ -1,9 +1,8 @@
-import L from "leaflet";
 import {getPopupText} from "../popup";
 import {attribution} from "../attribution";
-import {topoJsonLayer} from "../topoJsonLayer";
+import {TopoJsonLayer} from "../topoJsonLayer";
 
-export const geltungsbereicheLayer = new topoJsonLayer([], {
+export const geltungsbereicheLayer = new TopoJsonLayer([], {
     style: {
         color: "#56b556",
         fillColor: "#6eff6e",

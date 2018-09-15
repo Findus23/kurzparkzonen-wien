@@ -1,8 +1,8 @@
 import {getPopupText} from "../popup";
 import {attribution} from "../attribution";
-import {topoJsonLayer} from "../topoJsonLayer";
+import {TopoJsonLayer} from "../topoJsonLayer";
 
-export const berechtigungszoneLayer = new topoJsonLayer([], {
+export const berechtigungszoneLayer = new TopoJsonLayer([], {
     style: {
         color: "#b5874d",
         fillColor: "#ffc760",

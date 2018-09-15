@@ -1,9 +1,8 @@
-import L from "leaflet";
 import {getPopupText} from "../popup";
 import {attribution} from "../attribution";
-import {topoJsonLayer} from "../topoJsonLayer";
+import {TopoJsonLayer} from "../topoJsonLayer";
 
-export const parkzonenLayer = new topoJsonLayer([], {
+export const parkzonenLayer = new TopoJsonLayer([], {
     style: {
         color: "#687eff",
         fillColor: "#bccaff",
