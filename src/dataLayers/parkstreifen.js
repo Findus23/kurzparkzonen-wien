@@ -9,7 +9,7 @@ export const parkstreifenLayer = new L.GeoJSON([], {
         opacity: 1,
     },
     onEachFeature: function(feature, layer) {
-        layer.bindPopup(getPopupText(feature, "Kurzparkstreifen"))
+        layer.bindPopup(getPopupText(feature, "Kurzparkstreifen"));
     }
 });
 parkstreifenLayer.getAttribution = attribution;

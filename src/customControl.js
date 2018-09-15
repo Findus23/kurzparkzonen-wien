@@ -21,16 +21,16 @@ L.Control.Layers.include({
             }
         });
 
-        localStorage.setItem('layers', JSON.stringify({
+        localStorage.setItem("layers", JSON.stringify({
             overlayLayers: overlayLayers,
             enabledMapLayer: enabledMapLayer
         }));
     },
     restoreLayers: function() {
         const map = this._map;
-        const fromStorage = localStorage.getItem('layers');
+        const fromStorage = localStorage.getItem("layers");
         if (fromStorage) {
-            const parsedStorage = JSON.parse(localStorage.getItem('layers'));
+            const parsedStorage = JSON.parse(localStorage.getItem("layers"));
             console.warn(parsedStorage);
             const overlayLayers = parsedStorage.overlayLayers;
             const enabledMapLayer = parsedStorage.enabledMapLayer;

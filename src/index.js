@@ -5,11 +5,11 @@ import "./style.css";
 import {mapLayers} from "./tilelayers";
 import "./customControl";
 
-require('leaflet.locatecontrol');
+require("leaflet.locatecontrol");
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    const map = L.map('map').
+document.addEventListener("DOMContentLoaded", function() {
+    const map = L.map("map").
         setView([48.203527523471344, 16.37383544767511], 12);
     window.map = map;
 
@@ -17,21 +17,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     if (!control.restoreLayers()) {
-        if (process.env.NODE_ENV === 'production') {
+        if (process.env.NODE_ENV === "production") {
             mapLayers["Basemap.at"].addTo(map);
         } else {
             mapLayers.Leer.addTo(map);
         }
 
     }
-    map.createPane('zonenPane');
-    map.getPane('zonenPane').style.zIndex = "300";
+    map.createPane("zonenPane");
+    map.getPane("zonenPane").style.zIndex = "300";
 
     dataLayers.Parkstreifen.addTo(map);
     dataLayers.Parkzonen.addTo(map);
     dataLayers.AnrainerInnenparkplätze.addTo(map);
 
-    map.on('overlayadd overlayremove baselayerchange', function() {
+    map.on("overlayadd overlayremove baselayerchange", function() {
         console.info(control.saveLayers());
     });
 

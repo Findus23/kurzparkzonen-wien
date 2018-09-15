@@ -10,9 +10,9 @@ export const parkzonenLayer = new TopoJsonLayer([], {
         opacity: 1,
         fillOpacity: 0.4
     },
-    pane: 'zonenPane',
+    pane: "zonenPane",
     onEachFeature: function(feature, layer) {
-        layer.bindPopup(getPopupText(feature, "Kurzparkzone"))
+        layer.bindPopup(getPopupText(feature, "Kurzparkzone"));
     }
 });
 parkzonenLayer.getAttribution = attribution;

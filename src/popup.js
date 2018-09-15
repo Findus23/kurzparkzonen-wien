@@ -1,6 +1,6 @@
 export function getPopupText(feature, type) {
     const prop = feature.properties;
-    let lines = [];
+    const lines = [];
     if (type === "Kurzparkstreifen") {
         lines.push(prop.STRNAM + " " + (prop.GELTUNGSBEREICH ? prop.GELTUNGSBEREICH : ""));
     }
@@ -13,7 +13,7 @@ export function getPopupText(feature, type) {
         if (prop.ANMERKUNG) {
             lines.push(prop.ANMERKUNG);
         }
-        lines.push("<small>" + prop.TEXT_RECHT + "</small>")
+        lines.push("<small>" + prop.TEXT_RECHT + "</small>");
     } else {
         lines.push(prop.ZEITRAUM);
         lines.push(prop.DAUER);

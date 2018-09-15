@@ -6,8 +6,8 @@ export const bpLayer = new L.GeoJSON([], {
         return L.circleMarker(latlng, {
             radius: 2,
             fillColor: "#16ff00",
-            color: "#16ff00",
+            color: "#16ff00"
         });
-    },
+    }
 });
 bpLayer.getAttribution = attribution;
