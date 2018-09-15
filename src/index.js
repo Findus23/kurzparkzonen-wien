@@ -37,11 +37,10 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     let attribution = function() {
-        return 'Icons von <a href="https://mapicons.mapsmarker.com">mapicons.mapsmarker.com</a> ' +
-            '(<a href="http://creativecommons.org/licenses/by-sa/3.0/">CC BY SA 3.0</a>)' + " | " +
+        return '<a href="https://creativecommons.org/licenses/by/3.0/at/deed.de">Stadt Wien – data.wien.gv.at</a>' + " | " +
             '<a href="main.licenses.txt" target="_blank">Lizenzen</a> + ' +
-            '<a href="https://github.com/Findus23/POI-Schiltern" target="_blank">Source</a>' +
-            ' | <a href="https://www.ferienhaus-schiltern.at/impressum/" target="_blank">Impressum und Datenschutz</a>';
+            '<a href="https://github.com/Findus23/kurzparkzonen-wien" target="_blank">Source</a>' +
+            ' | <a href="https://lw1.at/i/" target="_blank">Impressum und Datenschutz</a>';
     };
 
     L.TopoJSON = L.GeoJSON.extend({
@@ -87,7 +86,9 @@ document.addEventListener('DOMContentLoaded', function() {
         onEachFeature: function(feature, layer) {
             layer.bindPopup(getPopupText(feature, "Kurzparkstreifen"))
         }
-    }).addTo(map);
+    });
+    parkstreifenLayer.getAttribution = attribution;
+    parkstreifenLayer.addTo(map);
     import (/* webpackChunkName: "parkstreifen" */"../processed/Kurzparkstreifen").then(parkstreifen => {
         parkstreifenLayer.addData(parkstreifen);
     });
@@ -95,8 +96,8 @@ document.addEventListener('DOMContentLoaded', function() {
         pointToLayer: function(feature, latlng) {
             return L.circleMarker(latlng, bpMarkerOptions);
         },
-
     });
+    bpLayer.getAttribution = attribution;
     import (/* webpackChunkName: "bp" */"../processed/Behindertenparkplätze").then(bp => {
         bpLayer.addData(bp);
     });
@@ -105,7 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
         onEachFeature: function(feature, layer) {
             layer.bindPopup(getPopupText(feature, "AnrainerInnenparkplatz"))
         }
-    }).addTo(map);
+    });
+    anrainerLayer.getAttribution = attribution;
+    anrainerLayer.addTo(map);
     import (/* webpackChunkName: "anrainer" */"../processed/AnrainerInnenparkplätze").then(anrainer => {
         anrainerLayer.addData(anrainer);
     });
@@ -115,7 +118,9 @@ document.addEventListener('DOMContentLoaded', function() {
         onEachFeature: function(feature, layer) {
             layer.bindPopup(getPopupText(feature, "Kurzparkzone"))
         }
-    }).addTo(map);
+    });
+    parkzonenLayer.getAttribution = attribution;
+    parkzonenLayer.addTo(map);
     import (/* webpackChunkName: "parkzonen" */"../processed/Kurzparkzonen").then(parkzonen => {
         parkzonenLayer.addData(parkzonen);
         const bbox = parkzonen.bbox;
@@ -129,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
             layer.bindPopup(getPopupText(feature, "Geltungsbereich"))
         }
     });
+    geltungsbereicheLayer.getAttribution = attribution;
     import (/* webpackChunkName: "geltungsbereiche" */"../processed/Geltungsbereiche").then(geltungsbereich => {
         geltungsbereicheLayer.addData(geltungsbereich);
     });
@@ -139,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
             layer.bindPopup(getPopupText(feature, "Berechtigungszone"))
         }
     });
+    berechtigungsZoneLayer.getAttribution = attribution;
     import (/* webpackChunkName: "berechtigungsZone" */"../processed/Berechtigungszone").then(berechtigungsZone => {
         berechtigungsZoneLayer.addData(berechtigungsZone);
     });
