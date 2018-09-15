@@ -20,6 +20,9 @@ function totopojson(geojson) {
 
 
 dataFiles.forEach((filename) => {
+    if (filename === ".gitkeep") {
+        return false;
+    }
     const contents = fs.readFileSync(dataDir + filename);
     const geojson = JSON.parse(contents);
     const nametype = path.parse(filename).name;
