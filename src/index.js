@@ -1,9 +1,8 @@
 import "leaflet/dist/leaflet.css";
 import "./style.css";
 import L from "leaflet";
-import * as topojson from "topojson-client";
-import {getPopupText} from "./popup";
-import * as tiles from "./tilelayers";
+import {mapLayers} from "./tilelayers";
+import {dataLayers} from "./dataLayers/dataLayers";
 
 require('leaflet.locatecontrol');
 
@@ -12,152 +11,21 @@ document.addEventListener('DOMContentLoaded', function() {
     let map = L.map('map').setView([48.203527523471344, 16.37383544767511], 12);
     window.map = map;
 
-    let blankLayer = L.tileLayer('');
-    let LeafIcon = L.Icon.extend({
-        options: {
-            iconAnchor: [16, 35],
-            popupAnchor: [0, -35]
-        }
-    });
     if (process.env.NODE_ENV === 'production') {
-        tiles.BasemapAT_basemap.addTo(map);
+        mapLayers["Basemap.at"].addTo(map);
     } else {
-        blankLayer.addTo(map);
+        mapLayers.Leer.addTo(map);
     }
 
 
-    let mapLayers = {
-        "Leer": blankLayer,
-        "Basemap.at": tiles.BasemapAT_basemap,
-        'Standard-OSM': tiles.OpenStreetMap_Mapnik,
-        "Wanderkarte": tiles.Thunderforest_Outdoors,
-        "Fahrradkarte": tiles.Thunderforest_OpenCycleMap,
-        "Öffi": tiles.Thunderforest_Transport,
-        "Schwarz-Weiß": tiles.Stamen_TonerLite,
-    };
-
-    let attribution = function() {
-        return '<a href="https://creativecommons.org/licenses/by/3.0/at/deed.de">Stadt Wien – data.wien.gv.at</a>' + " | " +
-            '<a href="main.licenses.txt" target="_blank">Lizenzen</a> + ' +
-            '<a href="https://github.com/Findus23/kurzparkzonen-wien" target="_blank">Source</a>' +
-            ' | <a href="https://lw1.at/i/" target="_blank">Impressum und Datenschutz</a>';
-    };
-
-    L.TopoJSON = L.GeoJSON.extend({
-        addData: function(jsonData) {
-            if (jsonData.type === 'Topology') {
-                for (let key in jsonData.objects) {
-                    let geojson = topojson.feature(jsonData, jsonData.objects[key]);
-                    L.GeoJSON.prototype.addData.call(this, geojson);
-                }
-            }
-            else {
-                L.GeoJSON.prototype.addData.call(this, jsonData);
-            }
-            return this;
-        }
-    });
-    const parkzonenStyle = {
-        color: "#687eff",
-        fillColor: "#bccaff",
-        weight: 3,
-        opacity: 1,
-        fillOpacity: 0.4
-    };
-    const parkstreifenStyle = {
-        color: "#d300ff",
-        weight: 3,
-        opacity: 1,
-    };
-    const anrainerStyle = {
-        color: "#ff9000",
-        weight: 3,
-        opacity: 1,
-    };
-    const bpMarkerOptions = {
-        radius: 2,
-        fillColor: "#16ff00",
-        color: "#16ff00",
-    };
     map.createPane('zonenPane');
     map.getPane('zonenPane').style.zIndex = "300";
-    let parkstreifenLayer = new L.GeoJSON([], {
-        style: parkstreifenStyle,
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(getPopupText(feature, "Kurzparkstreifen"))
-        }
-    });
-    parkstreifenLayer.getAttribution = attribution;
-    parkstreifenLayer.addTo(map);
-    import (/* webpackChunkName: "parkstreifen" */"../processed/Kurzparkstreifen").then(parkstreifen => {
-        parkstreifenLayer.addData(parkstreifen);
-    });
-    let bpLayer = new L.GeoJSON([], {
-        pointToLayer: function(feature, latlng) {
-            return L.circleMarker(latlng, bpMarkerOptions);
-        },
-    });
-    bpLayer.getAttribution = attribution;
-    import (/* webpackChunkName: "bp" */"../processed/Behindertenparkplätze").then(bp => {
-        bpLayer.addData(bp);
-    });
-    let anrainerLayer = new L.GeoJSON([], {
-        style: anrainerStyle,
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(getPopupText(feature, "AnrainerInnenparkplatz"))
-        }
-    });
-    anrainerLayer.getAttribution = attribution;
-    anrainerLayer.addTo(map);
-    import (/* webpackChunkName: "anrainer" */"../processed/AnrainerInnenparkplätze").then(anrainer => {
-        anrainerLayer.addData(anrainer);
-    });
-    let parkzonenLayer = new L.TopoJSON([], {
-        style: parkzonenStyle,
-        pane: 'zonenPane',
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(getPopupText(feature, "Kurzparkzone"))
-        }
-    });
-    parkzonenLayer.getAttribution = attribution;
-    parkzonenLayer.addTo(map);
-    import (/* webpackChunkName: "parkzonen" */"../processed/Kurzparkzonen").then(parkzonen => {
-        parkzonenLayer.addData(parkzonen);
-        const bbox = parkzonen.bbox;
-        map.fitBounds([[bbox[3], bbox[2]], [bbox[1], bbox[0]]]);
-    });
 
-    let geltungsbereicheLayer = new L.TopoJSON([], {
-        style: parkzonenStyle,
-        pane: 'zonenPane',
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(getPopupText(feature, "Geltungsbereich"))
-        }
-    });
-    geltungsbereicheLayer.getAttribution = attribution;
-    import (/* webpackChunkName: "geltungsbereiche" */"../processed/Geltungsbereiche").then(geltungsbereich => {
-        geltungsbereicheLayer.addData(geltungsbereich);
-    });
-    let berechtigungsZoneLayer = new L.TopoJSON([], {
-        style: parkzonenStyle,
-        pane: 'zonenPane',
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(getPopupText(feature, "Berechtigungszone"))
-        }
-    });
-    berechtigungsZoneLayer.getAttribution = attribution;
-    import (/* webpackChunkName: "berechtigungsZone" */"../processed/Berechtigungszone").then(berechtigungsZone => {
-        berechtigungsZoneLayer.addData(berechtigungsZone);
-    });
-    let parkLayers = {
-        "Parkstreifen": parkstreifenLayer,
-        "Parkzonen": parkzonenLayer,
-        "AnrainerInnenparkplätze": anrainerLayer,
-        "Behindertenparkplätze": bpLayer,
-        "Geltungsbereiche": geltungsbereicheLayer,
-        "Berechtigungszone": berechtigungsZoneLayer
-    };
-    let control = L.control.layers(mapLayers, parkLayers).addTo(map);
+    dataLayers.Parkstreifen.addTo(map);
+    dataLayers.Parkzonen.addTo(map);
+    dataLayers.AnrainerInnenparkplätze.addTo(map);
+    
+    let control = L.control.layers(mapLayers, dataLayers).addTo(map);
     map.on('overlayadd overlayremove', function(e) {
         console.info(e);
     });
