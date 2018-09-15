@@ -1,25 +1,25 @@
-const fs = require('fs');
-const path = require('path');
-const topojson = require('topojson');
-const simplify = require('simplify-geojson');
+const fs = require("fs");
+const path = require("path");
+const topojson = require("topojson");
+const simplify = require("simplify-geojson");
 
-const dataDir = 'data/';
-const processedDir = 'processed/';
+const dataDir = "data/";
+const processedDir = "processed/";
 const dataFiles = fs.readdirSync(dataDir);
 
-let zeitraum = [];
+const zeitraum = [];
 
-const parser= require("./daterangeparser");
+const parser = require("./daterangeparser");
 
 function totopojson(geojson) {
-    let tpj = topojson.topology({foo: geojson}, 1e5);
-    let presimplified = topojson.presimplify(tpj);
-    let finished = topojson.simplify(presimplified);
+    const tpj = topojson.topology({foo: geojson}, 1e5);
+    const presimplified = topojson.presimplify(tpj);
+    const finished = topojson.simplify(presimplified);
     return topojson.filter(finished, topojson.filterWeight);
 }
 
 
-dataFiles.forEach(filename => {
+dataFiles.forEach((filename) => {
     const contents = fs.readFileSync(dataDir + filename);
     const geojson = JSON.parse(contents);
     const nametype = path.parse(filename).name;
@@ -27,11 +27,11 @@ dataFiles.forEach(filename => {
     delete geojson.totalFeatures;
     delete geojson.crs;
     geojson.meta = {};
-    geojson.features.forEach(feature => {
-        delete feature.properties["SE_ANNO_CAD_DATA"];
+    geojson.features.forEach((feature) => {
+        delete feature.properties.SE_ANNO_CAD_DATA;
         if (feature.properties.ZEITRAUM) {
             parser(feature.properties.ZEITRAUM);
-            zeitraum.push(feature.properties.ZEITRAUM)
+            zeitraum.push(feature.properties.ZEITRAUM);
         }
         geojson.meta.WEITERE_INF = feature.properties.WEITERE_INF;
         geojson.meta.WEBLINK1 = feature.properties.WEBLINK1;
@@ -45,15 +45,13 @@ dataFiles.forEach(filename => {
         delete feature.properties.PRB_ID;
         delete feature.properties.FK_PRB;
         delete feature.id;
-        delete feature.properties["SE_SDO_ROWID"];
+        delete feature.properties.SE_SDO_ROWID;
     });
     let result;
     if (filename === "Behindertenparkplätze.json") {
-        geojson.features = geojson.features.filter(feature => {
-            return feature.properties.KATEGORIE === 1
-        });
+        geojson.features = geojson.features.filter((feature) => feature.properties.KATEGORIE === 1);
 
-        geojson.features.forEach(feature => {
+        geojson.features.forEach((feature) => {
             delete feature.properties.KATEGORIE;
             delete feature.properties.KATEGORIE_TXT;
         });
