@@ -7,3 +7,5 @@ stats.json
 src/apikey.js
 !processed/.gitkeep
 processed/*.json
+!data/.gitkeep
+data/*.json

@@ -4,7 +4,10 @@ import {attribution} from "../attribution";
 import {topoJsonLayer} from "../topoJsonLayer";
 
 export const geltungsbereicheLayer = new topoJsonLayer([], {
-    style: {},
+    style: {
+        color: "#56b556",
+        fillColor: "#6eff6e",
+    },
     pane: 'zonenPane',
     onEachFeature: function(feature, layer) {
         layer.bindPopup(getPopupText(feature, "Geltungsbereich"))
