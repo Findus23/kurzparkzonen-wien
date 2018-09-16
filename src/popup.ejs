@@ -1,0 +1,31 @@
+<h2><%= type %></h2>
+<% if (type === "Kurzparkstreifen") { %>
+    <p><%= prop.STRNAM %> <%= prop.GELTUNGSBEREICH %></p>
+<% } else if (type === "AnrainerInnenparkplatz") { %>
+    <p><%= prop.ADRESSE %></p>
+    <p><%= prop.STELLPL_ANZ %> Stellplätze</p>
+    <p><%= prop.AUSNAHME_TXT %></p>
+<% } else if (type === "Geltungsbereich" || type === "Berechtigungszone") { %>
+    <p><%= prop.BEZEICHNUNG %></p>
+    <p><%= prop.ANMERKUNG %></p>
+    <p>
+        <small><%= prop.TEXT_RECHT %></small>
+    </p>
+<% }
+if (dateRange) {
+%>
+    <table title="<%= prop.ZEITRAUM %>">
+        <% for (var day in dateRange) {
+        if (Object.prototype.hasOwnProperty.call(dateRange, day) && dateRange[day]) { %>
+            <tr>
+                <td><%= dateRange[day].name %></td>
+                <td><%= dateRange[day].startHour %>-<%= dateRange[day].endHour %> Uhr</td>
+            </tr>
+        <% }
+        } %>
+    </table>
+<% } if (prop.DAUER) { %>
+    <p><%= prop.DAUER %></p>
+
+<% } %>
+

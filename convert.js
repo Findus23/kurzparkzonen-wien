@@ -9,7 +9,6 @@ const dataFiles = fs.readdirSync(dataDir);
 
 const zeitraum = [];
 
-const parser = require("./daterangeparser");
 
 function totopojson(geojson) {
     const tpj = topojson.topology({foo: geojson}, 1e5);
@@ -32,10 +31,6 @@ dataFiles.forEach((filename) => {
     geojson.meta = {};
     geojson.features.forEach((feature) => {
         delete feature.properties.SE_ANNO_CAD_DATA;
-        if (feature.properties.ZEITRAUM) {
-            parser(feature.properties.ZEITRAUM);
-            zeitraum.push(feature.properties.ZEITRAUM);
-        }
         geojson.meta.WEITERE_INF = feature.properties.WEITERE_INF;
         geojson.meta.WEBLINK1 = feature.properties.WEBLINK1;
         geojson.meta.WEBLINK2 = feature.properties.WEBLINK2;

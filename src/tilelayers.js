@@ -1,5 +1,5 @@
 import L from "leaflet";
-import apiKey from "./apikey";
+import {apiKey} from "./apikey";
 
 const blankLayer = L.tileLayer("");
 

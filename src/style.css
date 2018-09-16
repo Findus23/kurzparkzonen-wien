@@ -39,3 +39,18 @@ a.leaflet-bar-part-single, a.leaflet-bar-part-single:hover {
     transform: rotate(360deg);
   }
 }
+
+.leaflet-popup-content p {
+  margin: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+.leaflet-popup-content td:first-child {
+  padding-left: 0;
+  padding-right: 5px;
+}
+
+

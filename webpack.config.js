@@ -76,6 +76,10 @@ module.exports = {
                 use: [
                     'url-loader'
                 ]
+            },
+            {
+                test: /popup\.ejs/,
+                loader: "ejs-webpack-loader"
             }
         ]
     }

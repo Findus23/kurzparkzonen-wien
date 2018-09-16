@@ -31,14 +31,12 @@ L.Control.Layers.include({
         const fromStorage = localStorage.getItem("layers");
         if (fromStorage) {
             const parsedStorage = JSON.parse(localStorage.getItem("layers"));
-            console.warn(parsedStorage);
             const overlayLayers = parsedStorage.overlayLayers;
             const enabledMapLayer = parsedStorage.enabledMapLayer;
 
             overlayLayers.forEach(function(name) {
                 dataLayers[name].addTo(map);
             });
-            console.log(enabledMapLayer);
             mapLayers[enabledMapLayer].addTo(map);
             return true;
         }
