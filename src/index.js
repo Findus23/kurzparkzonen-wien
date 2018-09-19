@@ -3,14 +3,15 @@ import "leaflet/dist/leaflet.css";
 import {dataLayers} from "./dataLayers/dataLayers";
 import "./style.css";
 import {mapLayers} from "./tilelayers";
+import {initAnalytics} from "./analytics";
 import "./customControl";
 
 require("leaflet.locatecontrol");
 
+initAnalytics();
 
 document.addEventListener("DOMContentLoaded", function() {
-    const map = L.map("map").
-        setView([48.203527523471344, 16.37383544767511], 12);
+    const map = L.map("map").setView([48.203527523471344, 16.37383544767511], 12);
     window.map = map;
 
     const control = L.control.layers(mapLayers, dataLayers).addTo(map);
@@ -35,6 +36,5 @@ document.addEventListener("DOMContentLoaded", function() {
         console.info(control.saveLayers());
     });
 
-    L.control.locate().
-        addTo(map);
+    L.control.locate().addTo(map);
 }, false);
