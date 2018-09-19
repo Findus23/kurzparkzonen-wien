@@ -7,17 +7,24 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.GeolocationPermissions;
 import android.webkit.WebResourceError;
@@ -32,12 +39,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.sentry.Sentry;
+import io.sentry.android.AndroidSentryClientFactory;
+
 public class MainActivity extends AppCompatActivity {
 
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
-    private int webViewPreviousState;
-    private final int PAGE_STARTED = 0x1;
-    private final int PAGE_REDIRECTED = 0x2;
     private CoordinatorLayout rootView;
     private WebView webView;
 
@@ -45,11 +52,27 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        setTheme(R.style.AppTheme);
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean crash_reports = sharedPref.getBoolean("crash_reports", false);
+
+        String userAgent = System.getProperty("http.agent") + " Kurzparkzonen";
+
+        if (crash_reports) {
+            Context ctx = this.getApplicationContext();
+
+            // Use the Sentry DSN (client key) from the Project Settings page on Sentry
+            String sentryDsn = "https://31e14ecca4964ecaa8debcc38357f87e@sentry.lw1.at/8";
+            Sentry.init(sentryDsn, new AndroidSentryClientFactory(ctx));
+        } else {
+            userAgent += " PrivateMode";
+        }
+
         setContentView(R.layout.activity_main);
-        webView = (WebView) findViewById(R.id.activity_main_webview);
-        rootView = (CoordinatorLayout) findViewById(R.id.action_bar_root);
+        webView = findViewById(R.id.activity_main_webview);
+        rootView = findViewById(R.id.action_bar_root);
 
         if (Build.VERSION.SDK_INT >= 23) {
             handleMarshMallowAndAbove();
@@ -69,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         webView.getSettings().setAppCacheEnabled(true);
         webView.getSettings().setDatabaseEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
+        webView.getSettings().setUserAgentString(userAgent);
 
         webView.getSettings().setGeolocationDatabasePath(getFilesDir().getPath());
 
@@ -184,10 +208,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
-                Map<String, Integer> perms = new HashMap<String, Integer>();
+                Map<String, Integer> perms = new HashMap<>();
                 // Initial
                 perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
 
@@ -201,18 +225,16 @@ public class MainActivity extends AppCompatActivity {
 
 
                         ) {
+                    Log.i("permissions:", "allowed");
                     // All Permissions Granted
-
-                    // Permission Denied
-                    Toast.makeText(MainActivity.this, "All Permission GRANTED !! Thank You :)", Toast.LENGTH_SHORT)
-                            .show();
+//                    Toast.makeText(MainActivity.this, "All Permission GRANTED !! Thank You :)", Toast.LENGTH_SHORT)
+//                            .show();
 
                 } else {
                     // Permission Denied
-                    Toast.makeText(MainActivity.this, "One or More Permissions are DENIED Exiting App :(", Toast.LENGTH_SHORT)
+                    Toast.makeText(MainActivity.this, R.string.permissions_denied, Toast.LENGTH_SHORT)
                             .show();
 
-                    finish();
                 }
             }
             break;
@@ -223,9 +245,9 @@ public class MainActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.M)
     private void handleMarshMallowAndAbove() {
-        List<String> permissionsNeeded = new ArrayList<String>();
+        List<String> permissionsNeeded = new ArrayList<>();
 
-        final List<String> permissionsList = new ArrayList<String>();
+        final List<String> permissionsList = new ArrayList<>();
         if (!addPermission(permissionsList, Manifest.permission.ACCESS_FINE_LOCATION))
             permissionsNeeded.add("Show Location");
 
@@ -251,8 +273,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        Toast.makeText(MainActivity.this, "No new Permission Required- Launching App .You are Awesome!!", Toast.LENGTH_SHORT)
-                .show();
+        Log.i("permission", "already allowed");
     }
 
 
@@ -274,5 +295,24 @@ public class MainActivity extends AppCompatActivity {
             return shouldShowRequestPermissionRationale(permission);
         }
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.to_preferences:
+                Intent i = new Intent(this, MyPreferencesActivity.class);
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

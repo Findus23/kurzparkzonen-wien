@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Kurzparkzonen Wien</string>
-    <string name="location_permission_reason">Um die aktuelle Position anzuzeigen, benötigt die App zugriff auf den Standort.</string>
+    <string name="location_permission_reason">Um die aktuelle Position anzuzeigen, benötigt die App Zugriff auf den Standort.</string>
+    <string name="permissions_denied">Der Zugriff auf die Position wurde abgelehnt. Die App kann dennoch verwendet werden.</string>
+    <string name="settings">Einstellungen</string>
+    <string name="source_code">Programmcode</string>
+    <string name="source_code_summary">Kurzparkzonen Wien ist Open Source</string>
+    <string name="licenses">Lizenzen</string>
+    <string name="privacy_policy">Datenschutzerklärung</string>
+    <string name="crash_reports">Absturzberichte senden</string>
+    <string name="crash_reprts_summary">Alle Daten werden mit Sentry, einer Open Source Software, anonymisiert gespeichert.</string>
 </resources>

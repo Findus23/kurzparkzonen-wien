@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:theme="@style/AppTheme">
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="crash_reports"
+        android:summary="@string/crash_reprts_summary"
+        android:title="@string/crash_reports" />
+    <Preference
+        android:summary="@string/source_code_summary"
+        android:title="@string/source_code">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://github.com/Findus23/kurzparkzonen-wien" />
+    </Preference>
+    <Preference
+        android:title="@string/licenses">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://example.com" />
+    </Preference>
+    <Preference
+        android:title="@string/privacy_policy">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://lw1.at/i" />
+    </Preference>
+
+</PreferenceScreen>
