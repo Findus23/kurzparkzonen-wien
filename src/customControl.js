@@ -2,6 +2,49 @@ import * as L from "leaflet";
 import {dataLayers} from "./dataLayers/dataLayers";
 import {mapLayers} from "./tilelayers";
 
+function loadLayerData(layers, map) {
+
+    layers.forEach((obj) => {
+        if (!obj.overlay || !map.hasLayer(obj.layer)) {
+            return false
+        }
+        const layer = dataLayers[obj.name];
+        layer.clearLayers();
+        switch (obj.name) {
+            case "Parkstreifen":
+                import (/* webpackChunkName: "parkstreifen" */"../processed/Kurzparkstreifen").then(parkstreifen => {
+                    layer.addData(parkstreifen);
+                });
+                break;
+            case "Parkzonen":
+                import (/* webpackChunkName: "parkzonen" */"../processed/Kurzparkzonen").then(parkzonen => {
+                    layer.addData(parkzonen);
+                });
+                break;
+            case "AnrainerInnenparkplätze":
+                import (/* webpackChunkName: "anrainer" */"../processed/AnrainerInnenparkplätze").then(anrainer => {
+                    layer.addData(anrainer);
+                });
+                break;
+            case "Behindertenparkplätze":
+                import (/* webpackChunkName: "bp" */"../processed/Behindertenparkplätze").then(bp => {
+                    layer.addData(bp);
+                });
+                break;
+            case "Geltungsbereiche":
+                import (/* webpackChunkName: "geltungsbereiche" */"../processed/Geltungsbereiche").then(geltungsbereich => {
+                    layer.addData(geltungsbereich);
+                });
+                break;
+            case "Berechtigungszone":
+                import (/* webpackChunkName: "berechtigungsZone" */"../processed/Berechtigungszone").then(berechtigungsZone => {
+                    layer.addData(berechtigungsZone);
+                });
+                break;
+        }
+    });
+}
+
 L.Control.Layers.include({
     saveLayers: function() {
         // create hash to hold all layers
@@ -11,7 +54,6 @@ L.Control.Layers.include({
         // loop through all layers in control
         this._layers.forEach((obj) => {
             // check if layer is an overlay
-            console.warn(obj);
             if (this._map.hasLayer(obj.layer)) {
                 if (obj.overlay) {
                     overlayLayers.push(obj.name);
@@ -20,6 +62,7 @@ L.Control.Layers.include({
                 }
             }
         });
+        loadLayerData(this._layers, this._map);
 
         localStorage.setItem("layers", JSON.stringify({
             overlayLayers: overlayLayers,
@@ -29,18 +72,26 @@ L.Control.Layers.include({
     restoreLayers: function() {
         const map = this._map;
         const fromStorage = localStorage.getItem("layers");
+        let overlayLayers;
         if (fromStorage) {
             const parsedStorage = JSON.parse(localStorage.getItem("layers"));
-            const overlayLayers = parsedStorage.overlayLayers;
+            overlayLayers = parsedStorage.overlayLayers;
             const enabledMapLayer = parsedStorage.enabledMapLayer;
-
-            overlayLayers.forEach(function(name) {
-                dataLayers[name].addTo(map);
-            });
             mapLayers[enabledMapLayer].addTo(map);
-            return true;
+
+        } else {
+            if (process.env.NODE_ENV === "production") {
+                mapLayers["Basemap.at"].addTo(map);
+            } else {
+                mapLayers.Leer.addTo(map);
+            }
+            overlayLayers = ["Parkstreifen", "Parkzonen"]
         }
-        return false;
+        overlayLayers.forEach(function(name) {
+            dataLayers[name].addTo(map);
+        });
+        loadLayerData(this._layers, this._map);
+        return true;
 
     }
 
