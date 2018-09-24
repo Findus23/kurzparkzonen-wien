@@ -1,21 +1,21 @@
-const path = require('path');
-let webpack = require('webpack');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-let SriPlugin = require('webpack-subresource-integrity');
-let CleanWebpackPlugin = require('clean-webpack-plugin');
+const path = require("path");
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const SriPlugin = require("webpack-subresource-integrity");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-    entry: './src/index.js',
+    entry: "./src/index.js",
     output: {
         // filename: 'build-[hash].js',
-        filename: '[name].[hash].js',
-        chunkFilename: '[name].[hash].js',
-        path: path.resolve(__dirname, 'dist'),
+        filename: "[name].[hash].js",
+        chunkFilename: "[name].[hash].js",
+        path: path.resolve(__dirname, "dist"),
         crossOriginLoading: "anonymous"
     },
-    devtool: 'source-map',
+    devtool: "source-map",
     devServer: {
         historyApiFallback: true,
         noInfo: true,
@@ -25,15 +25,15 @@ module.exports = {
     plugins: [
         new webpack.NamedModulesPlugin(),
         new HtmlWebpackPlugin({
-            title: 'Umgebungsplan Schiltern',
-            template: 'index.ejs',
-            devServer: process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8081',
+            title: "Umgebungsplan Schiltern",
+            template: "index.ejs",
+            devServer: process.env.NODE_ENV === "production" ? "" : "http://localhost:8081"
         }),
         new webpack.IgnorePlugin(/^jquery/),
         new SriPlugin({
-            hashFuncNames: ['sha256'],
-            enabled: process.env.NODE_ENV === 'production',
-        }),
+            hashFuncNames: ["sha256"],
+            enabled: process.env.NODE_ENV === "production"
+        })
     ],
     module: {
         rules: [
@@ -41,29 +41,43 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
-                    loader: 'babel-loader',
+                    loader: "babel-loader",
                     options: {
                         presets: [
                             [
                                 "@babel/preset-env",
                                 {
                                     "targets": {
-                                        "browsers": [
-                                            ">1% in AT"
-                                        ]
+                                        "browsers": [">1% in AT"]
                                     }
                                 }
-                            ],
+                            ]
                         ],
                         "plugins": ["syntax-dynamic-import"]
                     }
                 }
             },
             {
-                test: /\.css$/,
-                use: (process.env.NODE_ENV === 'production' ? [
+                test: /\.scss$/,
+                use: [
+                    process.env.NODE_ENV !== "production"
+                        ? "vue-style-loader"
+                        : MiniCssExtractPlugin.loader,
+                    "css-loader",
                     {
-                        loader: MiniCssExtractPlugin.loader,
+                        loader: "postcss-loader",
+                        options: {
+                            plugins: [require("autoprefixer")()]
+                        }
+                    },
+                    "sass-loader"
+                ]
+            },
+            {
+                test: /\.css$/,
+                use: (process.env.NODE_ENV === "production" ? [
+                    {
+                        loader: MiniCssExtractPlugin.loader
                     },
                     "css-loader"
                 ] : [
@@ -73,9 +87,7 @@ module.exports = {
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
-                use: [
-                    'url-loader'
-                ]
+                use: ["url-loader"]
             },
             {
                 test: /popup\.ejs/,
@@ -86,25 +98,25 @@ module.exports = {
 };
 
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
     module.exports.optimization = {
         splitChunks: {
             name: "commons"
         },
         minimize: true
     };
-    module.exports.devtool = '#source-map';
+    module.exports.devtool = "#source-map";
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new CleanWebpackPlugin("dist"),
-        new CopyWebpackPlugin([{from: 'icon', to: 'icon'}]),
+        new CopyWebpackPlugin([{from: "icon", to: "icon"}]),
         new webpack.HashedModuleIdsPlugin({
-            hashFunction: 'sha256',
-            hashDigest: 'hex',
+            hashFunction: "sha256",
+            hashDigest: "hex",
             hashDigestLength: 20
         }),
         new webpack.DefinePlugin({
-            'process.env': {
+            "process.env": {
                 NODE_ENV: '"production"'
             }
         }),
@@ -117,5 +129,5 @@ if (process.env.NODE_ENV === 'production') {
             filename: "[name].css",
             chunkFilename: "[id].css"
         })
-    ])
+    ]);
 }
