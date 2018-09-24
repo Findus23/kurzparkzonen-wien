@@ -1,7 +1,7 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {dataLayers} from "./dataLayers/dataLayers";
-import "./style.css";
+import "./style.scss";
 import {mapLayers} from "./tilelayers";
 import {initAnalytics} from "./analytics";
 import "./customControl";
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     map.createPane("zonenPane");
     map.getPane("zonenPane").style.zIndex = "300";
-    
+
     map.on("overlayadd overlayremove baselayerchange", function() {
         console.info(control.saveLayers());
     });

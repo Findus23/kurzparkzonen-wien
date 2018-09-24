@@ -1,31 +1,55 @@
-<h2><%= type %></h2>
-<% if (type === "Kurzparkstreifen") { %>
-    <p><%= prop.STRNAM %> <%= prop.GELTUNGSBEREICH %></p>
-<% } else if (type === "AnrainerInnenparkplatz") { %>
-    <p><%= prop.ADRESSE %></p>
-    <p><%= prop.STELLPL_ANZ %> Stellplätze</p>
-    <p><%= prop.AUSNAHME_TXT %></p>
-<% } else if (type === "Geltungsbereich" || type === "Berechtigungszone") { %>
-    <p><%= prop.BEZEICHNUNG %></p>
-    <p><%= prop.ANMERKUNG %></p>
-    <p>
-        <small><%= prop.TEXT_RECHT %></small>
-    </p>
-<% }
-if (dateRange) {
-%>
-    <table title="<%= prop.ZEITRAUM %>">
-        <% for (var day in dateRange) {
-        if (Object.prototype.hasOwnProperty.call(dateRange, day) && dateRange[day]) { %>
-            <tr>
-                <td><%= dateRange[day].name %></td>
-                <td><%= dateRange[day].startHour %>-<%= dateRange[day].endHour %> Uhr</td>
-            </tr>
+<div class="inner-content-wrapper">
+    <div class="header">
+        <h2><%= type %></h2>
+    </div>
+    <% if ((prop.ZEITRAUM || type === "Behindertenparkplätze") && inRange) { %>
+        <div class="seperator <%= dateRange ? "" : "undefined" %>"></div>
+    <% } %>
+    <div class="body">
+        <% if (type === "Kurzparkzone") { %>
+            <p class="location"><%= prop.BEZIRK %>. Bezirk</p>
+        <% } else if (type === "Kurzparkstreifen") { %>
+            <p class="location"><%= prop.STRNAM %> <%= prop.GELTUNGSBEREICH %></p>
+        <% } else if (type === "AnrainerInnenparkplatz") { %>
+            <p class="location"><%= prop.ADRESSE %></p>
+            <table>
+                <tr>
+                    <td>Stellplätze:</td>
+                    <td><%= prop.STELLPL_ANZ %></td>
+                </tr>
+                <tr>
+                    <td>Parkkleber:</td>
+                    <td><%= prop.AUSNAHME_TXT.replace("ausgen. Fahrzeuge mit Parkkleber für den", "") %></td>
+                </tr>
+            </table>
+        <% } else if (type === "Behindertenparkplätze") { %>
+            <p class="location"><%= prop.STRNAM %> <%= prop.GELTUNGSBEREICH %></p>
+        <% } else if (type === "Geltungsbereich" || type === "Berechtigungszone") { %>
+            <% if (prop.BEZIRK) { %>
+                <p class="location"><%= prop.BEZIRK %>. Bezirk</p>
+            <% } %>
+            <p><%= prop.BEZEICHNUNG %></p>
+            <p><%= prop.ANMERKUNG %></p>
+            <p>
+                <small><%= prop.TEXT_RECHT %></small>
+            </p>
         <% }
-        } %>
-    </table>
-<% } if (prop.DAUER) { %>
-    <p><%= prop.DAUER %></p>
-
-<% } %>
-
+        if (dateRange) {
+        %>
+            <table title="<%= prop.ZEITRAUM %>">
+                <% for (var day in dateRange) {
+                if (Object.prototype.hasOwnProperty.call(dateRange, day) && dateRange[day]) { %>
+                    <tr>
+                        <td><%= dateRange[day].name %></td>
+                        <td><%= dateRange[day].startHour %>-<%= dateRange[day].endHour %> Uhr</td>
+                    </tr>
+                <% }
+                } %>
+            </table>
+        <% } else { %>
+            <p><%= prop.ZEITRAUM %></p>
+        <% } if (prop.DAUER) { %>
+            <p>Parkdauer: <%= prop.DAUER %></p>
+        <% } %>
+    </div>
+</div>
