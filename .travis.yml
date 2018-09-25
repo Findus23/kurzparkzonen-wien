@@ -1,5 +1,7 @@
 language: android
-before_script: cd android
+before_script: 
+  - cd android
+  - mkdir dist
 android:
   components:
     - build-tools-28.0.3
