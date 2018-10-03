@@ -3,12 +3,12 @@ import {attribution} from "../attribution";
 import {TopoJsonLayer} from "../topoJsonLayer";
 
 const normalStyle = {
-    color: "#b5874d",
-    fillColor: "#ffc760",
+    color: "#d95f02",
+    fillColor: "#ffaa73",
     fillOpacity: 0.3
 };
 const darkStyle = {
-    fillColor: "#a27840",
+    fillColor: "#a05002",
     fillOpacity: 0.8
 };
 

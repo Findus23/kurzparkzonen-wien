@@ -6,8 +6,8 @@ export const bpLayer = new L.GeoJSON([], {
     pointToLayer: function(feature, latlng) {
         return L.circleMarker(latlng, {
             radius: 2,
-            fillColor: "#16ff00",
-            color: "#16ff00"
+            fillColor: "#a6761d",
+            color: "#a6761d"
         }).bindPopup(getPopupText(feature, "Behindertenparkplätze"));
     }
 });
