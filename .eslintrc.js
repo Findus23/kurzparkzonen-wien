@@ -279,5 +279,5 @@ module.exports = {
             "never"
         ]
     },
-    "globals": {"chrome": true}
+    "globals": { "_paq": true}
 };
