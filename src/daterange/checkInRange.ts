@@ -1,8 +1,8 @@
-export function checkInRange(range) {
+export function checkInRange(range: Range): RangeResult {
     const now = new Date();
     const n = now.getDay();
     const hour = now.getHours();
-    let dayrange;
+    let dayrange: DayRange;
     if (range.noday) {
         dayrange = range.noday;
     } else if (n >= 1 && n <= 5) {
@@ -25,4 +25,24 @@ export function checkInRange(range) {
     return {
         inRange: inRange
     };
+}
+
+declare global {
+    interface Range {
+        noday: DayRange | Boolean
+        wd: DayRange | Boolean
+        sa: DayRange | Boolean
+        so: DayRange | Boolean
+    }
+
+    interface DayRange {
+        startHour: number,
+        endHour: number,
+        name?: string
+    }
+
+    interface RangeResult {
+        inRange: boolean
+
+    }
 }

@@ -4,7 +4,7 @@ import {checkInRange} from "./daterange/checkInRange";
 const template = require("./popup.ejs");
 window.template = template;
 
-export function getPopupText(feature, type) {
+export function getPopupText(feature, type): () => string {
     return function () { // only calculate popup text on opening
         const dateRange = parseDateRange(feature.properties.ZEITRAUM);
         const inRange = dateRange ? checkInRange(dateRange).inRange : true;
@@ -17,4 +17,11 @@ export function getPopupText(feature, type) {
         };
         return template(data);
     };
+}
+
+
+declare global {
+    interface Window {
+        template: () => string;
+    }
 }

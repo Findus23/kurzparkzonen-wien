@@ -1,4 +1,4 @@
-function timeparser(timestring) {
+function timeparser(timestring: string): DayRange | Boolean {
     const matches = (/([\d.]+)-([\d.]+)(?:h| Uhr)?/).exec(timestring);
     if (matches) {
         if (matches[1].includes(".") || matches[2].includes(".")) { // todo: too lazy to handle minute math
@@ -9,11 +9,10 @@ function timeparser(timestring) {
             endHour: parseInt(matches[2], 10)
         };
     }
-
 }
 
-export function parseDateRange(rawstring) {
-    const result = {};
+export function parseDateRange(rawstring: string): Range | Boolean {
+    const result = <Range>{};
 
     if (!(/Mo|Di|Mi|Do|Fr|Sa|So/).test(rawstring)) {
 
@@ -26,13 +25,13 @@ export function parseDateRange(rawstring) {
                 return false;
             }
             if (day.includes("Mo") && day.includes("Fr")) {
-                result.wd = timeparser(day);
+                result.wd = <DayRange>timeparser(day);
                 result.wd.name = "Mo.-Fr.";
             } else if (day.includes("Sa")) {
-                result.sa = timeparser(day);
+                result.sa = <DayRange>timeparser(day);
                 result.sa.name = "Sa.";
             } else if (day.includes("So")) {
-                result.so = timeparser(day);
+                result.so = <DayRange>timeparser(day);
                 result.so.name = "So.";
             }
         });
