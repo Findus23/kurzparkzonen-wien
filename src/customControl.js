@@ -3,7 +3,8 @@ import {dataLayers} from "./dataLayers/dataLayers";
 import {mapLayers} from "./tilelayers";
 
 function loadLayerData(layers, map) {
-
+    const spinner = document.getElementById("spinnerWrapper");
+    spinner.classList.add("shown");
     layers.forEach((obj) => {
         if (!obj.overlay || !map.hasLayer(obj.layer)) {
             return false

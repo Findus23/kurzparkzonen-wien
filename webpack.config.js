@@ -90,7 +90,7 @@ module.exports = {
                 use: ["url-loader"]
             },
             {
-                test: /popup\.ejs/,
+                test: /(popup|spinner)\.ejs/,
                 loader: "ejs-webpack-loader"
             }
         ]

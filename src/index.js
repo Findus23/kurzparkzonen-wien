@@ -6,6 +6,8 @@ import {mapLayers} from "./tilelayers";
 import {initAnalytics} from "./analytics";
 import "./customControl";
 
+const spinner = require("./spinner.ejs");
+
 require("leaflet.locatecontrol");
 
 if (process.env.NODE_ENV === "production") {
@@ -17,7 +19,10 @@ document.addEventListener("DOMContentLoaded", function() {
     window.map = map;
 
     const control = L.control.layers(mapLayers, dataLayers).addTo(map);
-
+    const div = document.createElement("div");
+    div.innerHTML = spinner();
+    div.id = "spinnerWrapper";
+    document.querySelector(".leaflet-control-layers-list").appendChild(div);
 
     if (!control.restoreLayers()) {
 
@@ -27,6 +32,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     map.on("overlayadd overlayremove baselayerchange", function() {
         console.info(control.saveLayers());
+        const spinner = document.getElementById("spinnerWrapper");
+        spinner.classList.remove("shown");
     });
 
     L.control.locate().addTo(map);
