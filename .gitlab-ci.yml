@@ -23,6 +23,9 @@ before_script:
   - set +o pipefail
   - yes | android-sdk-linux/tools/bin/sdkmanager --licenses
   - set -o pipefail
+  - rm app/src/main/assets/dist
+  - mkdir app/src/main/assets/dist
+  - touch app/src/main/assets/dist/index.html
 
 stages:
   - build
