@@ -44,7 +44,7 @@ website_build:
     expire_in: 1 week
   
 lintDebug:
-  <<: *android_job
+  <<: *android_jobs
   stage: android_build
   script:
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
@@ -53,7 +53,7 @@ lintDebug:
     - android/app/lint/reports
 
 assembleDebug:
-  <<: *android_job
+  <<: *android_jobs
   stage: android_build
   script:
     - ./gradlew assembleDebug
@@ -62,7 +62,7 @@ assembleDebug:
     - android/app/build/outputs/
 
 debugTests:
-  <<: *android_job
+  <<: *android_jobs
   stage: test
   script:
     - ./gradlew -Pci --console=plain :app:testDebug
