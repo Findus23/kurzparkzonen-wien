@@ -36,7 +36,8 @@ stages:
 
 website_build:
   image: node
-  before_script: yarn install --pure-lockfile --ignore-engines
+  before_script: 
+  - yarn install --pure-lockfile --ignore-engines
   script: yarn run build --no-progress
   artifacts:
     paths:
