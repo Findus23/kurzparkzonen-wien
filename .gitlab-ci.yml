@@ -30,11 +30,26 @@
       #    - touch app/src/main/assets/dist/index.html
 
 stages:
+  - parkzonen_fetch
   - website_build
   - android_build
   - test
 
+fetch_data:
+  image: ubuntu
+  stage: parkzonen_fetch
+  script:
+    - ./fetch.sh
+    - node convert.js
+  artifacts:
+    paths:
+      - processed/
+    expire_in: 1 day
 webpack:
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+    - node_modules/
   stage: website_build
   image: node
   before_script: 
