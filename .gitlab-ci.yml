@@ -34,7 +34,8 @@ stages:
   - android_build
   - test
 
-website_build:
+webpack:
+  stage: website_build
   image: node
   before_script: 
   - yarn install --pure-lockfile --ignore-engines
