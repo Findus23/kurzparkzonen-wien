@@ -4,7 +4,7 @@ node_modules/
 dist/
 
 stats.json
-src/apikey.js
+apikey.sh
 !processed/.gitkeep
 processed/*.json
 !data/.gitkeep
