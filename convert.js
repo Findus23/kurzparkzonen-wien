@@ -19,7 +19,7 @@ function totopojson(geojson) {
 
 
 dataFiles.forEach((filename) => {
-    if (filename === ".gitkeep") {
+    if (filename === ".gitkeep" || filename === "checksums.sha256") {
         return false;
     }
     const contents = fs.readFileSync(dataDir + filename);
