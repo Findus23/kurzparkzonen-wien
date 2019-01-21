@@ -7,6 +7,7 @@
     <string name="source_code_summary">Kurzparkzonen Wien ist Open Source</string>
     <string name="licenses">Lizenzen</string>
     <string name="privacy_policy">Datenschutzerklärung</string>
-    <string name="crash_reports">Absturzberichte senden</string>
-    <string name="crash_reprts_summary">Alle Daten werden mit Sentry, einer Open Source Software, anonymisiert gespeichert.</string>
+    <string name="crash_reports">Absturz- und Nutzungsstatistiken senden</string>
+    <string name="crash_reprts_summary">Alle Daten werden mit Sentry und Matomo, zwei Open Source Programmen, anonymisiert gespeichert.</string>
+    <string name="restartApp">Bitte starte die App komplett neu, um die Datenschutzeinstellung zu übernehmen.</string>
 </resources>

@@ -62,12 +62,14 @@ public class MainActivity extends AppCompatActivity {
         String userAgent = System.getProperty("http.agent") + " Kurzparkzonen";
 
         if (crash_reports) {
+            Log.i("Kurzparkzonen", "crash reports are enabled");
             Context ctx = this.getApplicationContext();
 
             // Use the Sentry DSN (client key) from the Project Settings page on Sentry
             String sentryDsn = "https://31e14ecca4964ecaa8debcc38357f87e@sentry.lw1.at/8";
             Sentry.init(sentryDsn, new AndroidSentryClientFactory(ctx));
         } else {
+            Log.i("Kurzparkzonen", "crash reports are disabled");
             userAgent += " PrivateMode";
         }
 
@@ -128,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         }
+
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request,

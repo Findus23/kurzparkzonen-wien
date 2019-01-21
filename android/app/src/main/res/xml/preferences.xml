@@ -5,7 +5,8 @@
         android:defaultValue="true"
         android:key="crash_reports"
         android:summary="@string/crash_reprts_summary"
-        android:title="@string/crash_reports" />
+        android:title="@string/crash_reports"
+        android:singleLineTitle="false"/>
     <Preference
         android:summary="@string/source_code_summary"
         android:title="@string/source_code">

@@ -1,5 +1,6 @@
 package at.lw1.kurzparkzonen.wien;
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -106,4 +107,6 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
         }
         return mDelegate;
     }
+
+    public abstract void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key);
 }
