@@ -38,6 +38,9 @@ stages:
 fetch_data:
   image: ubuntu
   stage: parkzonen_fetch
+  before_script:
+    - apt-get update
+    - apt-get install curl
   script:
     - ./fetch.sh
     - node convert.js
