@@ -36,11 +36,16 @@ stages:
   - test
 
 fetch_data:
-  image: ubuntu
+  image: node
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+    - node_modules/
   stage: parkzonen_fetch
   before_script:
     - apt-get update
     - DEBIAN_FRONTEND=noninteractive apt-get install curl -y
+    - yarn install --pure-lockfile --ignore-engines
   script:
     - ./fetch.sh
     - node convert.js
