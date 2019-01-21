@@ -1,20 +1,19 @@
 import L from "leaflet";
-import {apiKey} from "./apikey";
 
 const blankLayer = L.tileLayer("");
-
+console.log(process.env.API_KEY)
 const OpenStreetMapMapnik = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 });
 const ThunderforestOpenCycleMap = L.tileLayer("https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}", {
     attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    apikey: apiKey,
+    apikey: process.env.API_KEY,
     maxZoom: 22
 });
 const ThunderforestOutdoors = L.tileLayer("https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey={apikey}", {
     attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    apikey: apiKey,
+    apikey: process.env.API_KEY,
     maxZoom: 22
 });
 const BasemapATbasemap = L.tileLayer("https://maps{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.{format}", {
@@ -26,7 +25,7 @@ const BasemapATbasemap = L.tileLayer("https://maps{s}.wien.gv.at/basemap/geoland
 });
 const ThunderforestTransport = L.tileLayer("https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey={apikey}", {
     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    apikey: apiKey,
+    apikey: process.env.API_KEY,
     maxZoom: 22
 });
 

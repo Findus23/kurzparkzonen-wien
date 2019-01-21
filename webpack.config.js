@@ -6,6 +6,10 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
+if (!process.env.API_KEY) {
+    throw Error("no api key specified");
+}
+
 module.exports = {
     entry: "./src/index.js",
     output: {
@@ -33,6 +37,11 @@ module.exports = {
         new SriPlugin({
             hashFuncNames: ["sha256"],
             enabled: process.env.NODE_ENV === "production"
+        }),
+        new webpack.DefinePlugin({
+            "process.env": {
+                API_KEY: '"' + process.env.API_KEY + '"'
+            }
         })
     ],
     module: {
