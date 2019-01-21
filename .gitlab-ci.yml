@@ -65,7 +65,7 @@ webpack:
   script: yarn run build --no-progress
   artifacts:
     paths:
-      - build/
+      - dist/
     expire_in: 1 week
   
 lintDebug:
