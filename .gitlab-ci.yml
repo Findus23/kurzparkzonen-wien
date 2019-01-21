@@ -40,7 +40,7 @@ fetch_data:
   stage: parkzonen_fetch
   before_script:
     - apt-get update
-    - apt-get install curl
+    - DEBIAN_FRONTEND=noninteractive apt-get install curl -y
   script:
     - ./fetch.sh
     - node convert.js
