@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        Boolean crash_reports = sharedPref.getBoolean("crash_reports", false);
+        boolean crash_reports = sharedPref.getBoolean("crash_reports", false);
 
         String userAgent = System.getProperty("http.agent") + " Kurzparkzonen";
 
@@ -129,68 +129,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
             return true;
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.M)
-        @Override
-        public void onReceivedError(WebView view, WebResourceRequest request,
-                                    WebResourceError error) {
-
-
-            if (isConnected()) {
-                final Snackbar snackBar = Snackbar.make(rootView, "onReceivedError : " + error.getDescription(), Snackbar.LENGTH_INDEFINITE);
-                snackBar.setAction("Reload", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        webView.loadUrl("javascript:window.location.reload( true )");
-                    }
-                });
-                snackBar.show();
-            } else {
-                final Snackbar snackBar = Snackbar.make(rootView, "No Internet Connection ", Snackbar.LENGTH_INDEFINITE);
-                snackBar.setAction("Enable Data", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivityForResult(new Intent(Settings.ACTION_WIRELESS_SETTINGS), 0);
-                        webView.loadUrl("javascript:window.location.reload( true )");
-                        snackBar.dismiss();
-                    }
-                });
-                snackBar.show();
-            }
-
-            super.onReceivedError(view, request, error);
-
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-        @Override
-        public void onReceivedHttpError(WebView view,
-                                        WebResourceRequest request, WebResourceResponse errorResponse) {
-
-            if (isConnected()) {
-                final Snackbar snackBar = Snackbar.make(rootView, "HttpError : " + errorResponse.getReasonPhrase(), Snackbar.LENGTH_INDEFINITE);
-
-                snackBar.setAction("Reload", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        webView.loadUrl("javascript:window.location.reload( true )");
-                    }
-                });
-                snackBar.show();
-            } else {
-                final Snackbar snackBar = Snackbar.make(rootView, "No Internet Connection ", Snackbar.LENGTH_INDEFINITE);
-                snackBar.setAction("Enable Data", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        startActivityForResult(new Intent(Settings.ACTION_WIRELESS_SETTINGS), 0);
-                        webView.loadUrl("javascript:window.location.reload( true )");
-                        snackBar.dismiss();
-                    }
-                });
-                snackBar.show();
-            }
-            super.onReceivedHttpError(view, request, errorResponse);
         }
     }
 

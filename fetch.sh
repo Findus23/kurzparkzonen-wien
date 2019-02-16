@@ -10,3 +10,4 @@ curl "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1
 curl "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:PARKENBERECHTOGD&srsName=EPSG:4326&outputFormat=json" -o Berechtigungszone.json
 
 sha256sum *.json > checksums.sha256
+L

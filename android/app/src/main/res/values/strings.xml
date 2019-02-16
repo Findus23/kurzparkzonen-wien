@@ -4,10 +4,12 @@
     <string name="permissions_denied">Der Zugriff auf die Position wurde abgelehnt. Die App kann dennoch verwendet werden.</string>
     <string name="settings">Einstellungen</string>
     <string name="source_code">Programmcode</string>
-    <string name="source_code_summary">Kurzparkzonen Wien ist Open Source</string>
+    <string name="source_code_summary">Kurzparkzonen Wien ist eine Freie Software!</string>
     <string name="licenses">Lizenzen</string>
     <string name="privacy_policy">Datenschutzerklärung</string>
     <string name="crash_reports">Absturz- und Nutzungsstatistiken senden</string>
     <string name="crash_reprts_summary">Alle Daten werden mit Sentry und Matomo, zwei Open Source Programmen, anonymisiert gespeichert.</string>
     <string name="restartApp">Bitte starte die App komplett neu, um die Datenschutzeinstellung zu übernehmen.</string>
+    <string name="disclaimer_title">Disclaimer</string>
+    <string name="disclaimer">Alle Daten stammen von der Stadt Wien (https://data.wien.gv.at, CC BY 3.0 AT), Datenfehler sind möglich </string>
 </resources>
