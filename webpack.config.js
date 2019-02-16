@@ -5,6 +5,7 @@ const SriPlugin = require("webpack-subresource-integrity");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlugin;
 
 if (!process.env.API_KEY) {
     throw Error("no api key specified");
@@ -42,6 +43,9 @@ module.exports = {
             "process.env": {
                 API_KEY: '"' + process.env.API_KEY + '"'
             }
+        }),
+        new LicenseWebpackPlugin({
+            perChunkOutput: false
         })
     ],
     module: {
