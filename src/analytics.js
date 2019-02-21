@@ -3,6 +3,7 @@ import {init} from "@sentry/browser";
 function initMatomo(webView) {
 // eslint-disable-next-line no-use-before-define
     const _paq = _paq || [];
+    window._paq = _paq;
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
     _paq.push(["setDoNotTrack", true]);
     _paq.push(["setRequestMethod", "POST"]);
