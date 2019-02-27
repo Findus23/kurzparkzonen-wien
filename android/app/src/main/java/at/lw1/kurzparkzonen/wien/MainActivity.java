@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         boolean crash_reports = sharedPref.getBoolean("crash_reports", false);
 
         String userAgent = System.getProperty("http.agent") + " Kurzparkzonen";
@@ -81,9 +82,7 @@ public class MainActivity extends AppCompatActivity {
             handleMarshMallowAndAbove();
         }
 
-        if (0 != (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE)) {
-            WebView.setWebContentsDebuggingEnabled(true);
-        }
+        WebView.setWebContentsDebuggingEnabled(true);
         webView.getSettings().setBuiltInZoomControls(false);
         webView.setWebViewClient(new GeoWebViewClient());
         // Below required for geolocation
