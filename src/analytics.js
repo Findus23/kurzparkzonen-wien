@@ -27,7 +27,8 @@ function initMatomo(webView) {
 
 function initSentry() {
     init({
-        dsn: "https://7676c0574785409b94c5c9c21daea45d@sentry.lw1.at/9"
+        dsn: "https://7676c0574785409b94c5c9c21daea45d@sentry.lw1.at/9",
+        release: "0.1.4"
     });
 }
 

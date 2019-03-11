@@ -19,7 +19,7 @@ function totopojson(geojson) {
 
 
 dataFiles.forEach((filename) => {
-    if (filename === ".gitkeep" || filename === "checksums.sha256") {
+    if (filename === ".gitkeep" || filename === "checksums.sha256" || filename.includes("formatted")) {
         return false;
     }
     const contents = fs.readFileSync(dataDir + filename);
@@ -66,7 +66,7 @@ dataFiles.forEach((filename) => {
     }
 
     fs.writeFileSync(processedDir + filename, JSON.stringify(result));
-    fs.writeFileSync("zeitraum.txt", zeitraum.join("\n"));
+    // fs.writeFileSync("zeitraum.txt", zeitraum.join("\n"));
 
 
 });
