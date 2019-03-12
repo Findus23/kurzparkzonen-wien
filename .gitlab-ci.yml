@@ -44,7 +44,7 @@ fetch_data:
   stage: parkzonen_fetch
   before_script:
     - apt-get update
-    - DEBIAN_FRONTEND=noninteractive apt-get install curl -y
+    - DEBIAN_FRONTEND=noninteractive apt-get install curl jq -y
     - yarn install --pure-lockfile --ignore-engines
   script:
     - ./fetch.sh
