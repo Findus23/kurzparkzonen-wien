@@ -5,7 +5,7 @@ import {bpLayer} from "./bp";
 import {geltungsbereicheLayer} from "./geltungsbereiche";
 import {berechtigungszoneLayer} from "./berechtigungszone";
 
-export const dataLayers = {
+export const dataLayers: { [s: string]: L.GeoJSON } = {
     "Parkstreifen": parkstreifenLayer,
     "Parkzonen": parkzonenLayer,
     "AnrainerInnenparkplätze": anrainerLayer,

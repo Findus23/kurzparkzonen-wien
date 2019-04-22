@@ -12,7 +12,7 @@ if (!process.env.API_KEY) {
 }
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: "./src/index.ts",
     output: {
         // filename: 'build-[hash].js',
         filename: "[name].[hash].js",
@@ -25,6 +25,9 @@ module.exports = {
         historyApiFallback: true,
         noInfo: true,
         overlay: true
+    },
+    resolve: {
+        extensions: [".ts", ".tsx", ".js", ".json"]
     },
     mode: process.env.NODE_ENV,
     plugins: [
@@ -50,6 +53,11 @@ module.exports = {
     ],
     module: {
         rules: [
+            {
+                test: /\.tsx?$/,
+                use: "ts-loader",
+                exclude: /node_modules/
+            },
             {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,

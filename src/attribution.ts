@@ -1,4 +1,4 @@
-export function attribution() {
+export function attribution(): string {
     return `<a href="https://creativecommons.org/licenses/by/3.0/at/deed.de" target="_blank">Stadt Wien – data.wien.gv.at</a>
 |
 <a href="https://kurzparkzonen-wien.lw1.at/licenses.txt" target="_blank">Lizenzen</a>
