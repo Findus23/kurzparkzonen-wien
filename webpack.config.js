@@ -8,7 +8,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const LicenseWebpackPlugin = require('license-webpack-plugin').LicenseWebpackPlugin;
 
 if (!process.env.API_KEY) {
-    throw Error("no api key specified");
+    console.error("no api key specified");
 }
 
 module.exports = {
