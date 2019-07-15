@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:theme="@style/AppTheme">
     <CheckBoxPreference
-        android:defaultValue="true"
+        android:defaultValue="false"
         android:key="crash_reports"
         android:singleLineTitle="false"
         android:summary="@string/crash_reprts_summary"
