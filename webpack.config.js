@@ -31,7 +31,6 @@ module.exports = {
     },
     mode: process.env.NODE_ENV,
     plugins: [
-        new webpack.NamedModulesPlugin(),
         new HtmlWebpackPlugin({
             title: "Umgebungsplan Schiltern",
             template: "index.ejs",
