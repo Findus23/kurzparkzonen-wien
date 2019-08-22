@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const topojson = require("topojson");
 const simplify = require("simplify-geojson");
-
+const geojsonPrecision = require("geojson-precision");
 const dataDir = "data/";
 const processedDir = "processed/";
 const dataFiles = fs.readdirSync(dataDir);
@@ -57,10 +57,14 @@ dataFiles.forEach((filename) => {
     }
     if (filename.includes("zone") || filename.includes("Geltungsbereiche")) {
         result = totopojson(geojson);
+        result = topojson.presimplify(result);
+        result = topojson.simplify(result, 1e-9);
+        result = topojson.quantize(result, 1e4);
         fs.writeFileSync(processedDir + nametype + ".structure.json", JSON.stringify(result.objects.foo.geometries[0], null, 2));
 
     } else {
         result = simplify(geojson, 0.01);
+        result = geojsonPrecision.parse(result,5);
         fs.writeFileSync(processedDir + nametype + ".structure.json", JSON.stringify(result.features[0], null, 2));
 
     }
