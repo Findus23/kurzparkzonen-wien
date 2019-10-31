@@ -10,3 +10,4 @@ processed/*.json
 !data/.gitkeep
 data/*.json
 src/apikey.js
+fdroid/
