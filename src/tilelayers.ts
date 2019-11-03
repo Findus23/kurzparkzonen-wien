@@ -1,7 +1,7 @@
 import L, {TileLayerOptions} from "leaflet";
 
 const blankLayer = L.tileLayer("");
-const OpenStreetMapMapnik = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+const OpenStreetMapMapnik = L.tileLayer("https://maps.lw1.at/tiles/1.0.0/osm/GLOBAL_MERCATOR/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 } as CustomTileLayerOptions);
@@ -15,8 +15,8 @@ const ThunderforestOutdoors = L.tileLayer("https://{s}.tile.thunderforest.com/ou
     apikey: process.env.API_KEY,
     maxZoom: 22
 } as CustomTileLayerOptions);
-const BasemapATbasemap = L.tileLayer("https://maps{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.{format}", {
-    maxZoom: 20,
+const BasemapATbasemap = L.tileLayer("https://maps.lw1.at/tiles/1.0.0/basemap/GLOBAL_MERCATOR/{z}/{x}/{y}.{format}", {
+    maxZoom: 19,
     attribution: 'Datenquelle: <a href="https://www.basemap.at">basemap.at</a>',
     subdomains: ["", "1", "2", "3", "4"],
     format: "png",
