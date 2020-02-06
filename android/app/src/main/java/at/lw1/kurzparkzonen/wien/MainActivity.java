@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             Context ctx = this.getApplicationContext();
 
             // Use the Sentry DSN (client key) from the Project Settings page on Sentry
-            String sentryDsn = "https://31e14ecca4964ecaa8debcc38357f87e@sentry.lw1.at/8";
+            String sentryDsn = "https://a466af869d1942d4b70b60e798c5e234@sentry.lw1.at/10";
             Sentry.init(sentryDsn, new AndroidSentryClientFactory(ctx));
         } else {
             Log.i("Kurzparkzonen", "crash reports are disabled");
