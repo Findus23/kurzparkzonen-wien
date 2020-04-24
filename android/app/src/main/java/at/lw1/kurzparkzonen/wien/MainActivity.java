@@ -34,8 +34,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.sentry.Sentry;
-import io.sentry.android.AndroidSentryClientFactory;
+import io.sentry.android.core.SentryAndroid;
+import io.sentry.core.SentryLevel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,9 +60,16 @@ public class MainActivity extends AppCompatActivity {
             Log.i("Kurzparkzonen", "crash reports are enabled");
             Context ctx = this.getApplicationContext();
 
-            // Use the Sentry DSN (client key) from the Project Settings page on Sentry
-            String sentryDsn = "https://a466af869d1942d4b70b60e798c5e234@sentry.lw1.at/10";
-            Sentry.init(sentryDsn, new AndroidSentryClientFactory(ctx));
+          SentryAndroid.init(this, options -> {
+            // Add a callback that will be used before the event is sent to Sentry.
+            // With this callback, you can modify the event or, when returning null, also discard the event.
+            options.setBeforeSend((event, hint) -> {
+              if (SentryLevel.DEBUG.equals(event.getLevel()))
+                return null;
+              else
+                return event;
+            });
+          });
         } else {
             Log.i("Kurzparkzonen", "crash reports are disabled");
             userAgent += " PrivateMode";
