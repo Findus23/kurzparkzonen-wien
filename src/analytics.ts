@@ -6,6 +6,7 @@ function initMatomo(webView: boolean) {
     const _paq: [[any, any, any] | [any, any] | [any]] = _paq || [];
     window._paq = _paq;
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(['disableCookies']);
     _paq.push(["setDoNotTrack", true]);
     _paq.push(["setRequestMethod", "POST"]);
     _paq.push(["trackPageView"]);
