@@ -1,5 +1,3 @@
-import {init} from "@sentry/browser";
-
 function initMatomo(webView: boolean) {
 // eslint-disable-next-line no-use-before-define
     // @ts-ignore
@@ -29,19 +27,12 @@ function initMatomo(webView: boolean) {
     _paq.push(["setCustomDimension", 1, webView]);
 }
 
-function initSentry() {
-    init({
-        dsn: "https://68bac469027640a8baed716d6d079ff8@sentry.lw1.at/9",
-        release: "0.1.4"
-    });
-}
 
 export function initAnalytics() {
     const isWebview = navigator.userAgent.indexOf("Kurzparkzonen") !== -1;
     const optOut = navigator.userAgent.indexOf("PrivateMode") !== -1;
     if (!optOut) {
         initMatomo(isWebview);
-        initSentry();
     }
 }
 

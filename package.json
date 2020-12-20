@@ -5,7 +5,6 @@
   "main": "index.js",
   "dependencies": {
     "@mapbox/geojson-merge": "^1.0.2",
-    "@sentry/browser": "^5.1.0",
     "ejs-webpack-loader": "^2.2.2",
     "eslint": "^7.16.0",
     "geojson-precision": "^1.0.0",
