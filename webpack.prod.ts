@@ -24,16 +24,15 @@ const config: webpack.Configuration = merge(common, {
             enabled: true
         }),
         new LicenseWebpackPlugin({
-            perChunkOutput: false
+            // perChunkOutput: false
         }) as any,
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin({patterns: [{from: "icon", to: "icon"}]}),
+        new CopyWebpackPlugin({patterns: [{from: "licenses.txt", to: "licenses.txt"}]}),
         new webpack.LoaderOptionsPlugin({
             minimize: true
         }),
         new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
             filename: "[name].[contenthash].css",
             chunkFilename: "[id].[contenthash].css"
         })

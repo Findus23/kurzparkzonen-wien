@@ -59,7 +59,7 @@
     "webpack-subresource-integrity": "^1.1.0-rc.4"
   },
   "scripts": {
-    "build": "TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --config webpack.prod.ts",
+    "build": "NODE_ENV=\"production\" TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --config webpack.prod.ts",
     "dev": "TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack serve --config webpack.dev.ts --hot",
     "json": "TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --config webpack.prod.ts --profile --json > stats.json"
   },
