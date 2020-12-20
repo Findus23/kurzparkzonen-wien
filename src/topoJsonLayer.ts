@@ -1,13 +1,13 @@
 import L from "leaflet";
-import * as topojson from "topojson-client";
+import {feature} from "topojson-client";
 
 export const TopoJsonLayer = L.GeoJSON.extend({
     // @ts-ignore
-    addData: function (jsonData) {
+    addData: function (jsonData: TopoJSON) {
         if (jsonData.type === "Topology") {
             for (const key in jsonData.objects) {
                 if (Object.prototype.hasOwnProperty.call(jsonData.objects, key)) {
-                    const geojson = topojson.feature(jsonData, jsonData.objects[key]);
+                    const geojson = feature(jsonData, jsonData.objects[key]);
                     L.GeoJSON.prototype.addData.call(this, geojson);
                 }
             }
