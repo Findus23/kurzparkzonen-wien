@@ -8,7 +8,7 @@
     <string name="licenses">Lizenzen</string>
     <string name="privacy_policy">Datenschutzerklärung</string>
     <string name="crash_reports">Absturz- und Nutzungsstatistiken senden</string>
-    <string name="crash_reprts_summary">Alle Daten werden mit Sentry und Matomo, zwei Open Source Programmen, anonymisiert gespeichert.</string>
+    <string name="crash_reprts_summary">Alle Daten werden mit Matomo, einem Open Source Programm, anonymisiert gespeichert.</string>
     <string name="restartApp">Bitte starte die App komplett neu, um die Datenschutzeinstellung zu übernehmen.</string>
     <string name="disclaimer_title">Disclaimer</string>
     <string name="disclaimer">Alle Daten stammen von der Stadt Wien (https://data.wien.gv.at, CC BY 3.0 AT), Datenfehler sind möglich </string>

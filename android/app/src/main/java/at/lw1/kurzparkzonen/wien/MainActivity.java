@@ -34,8 +34,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.sentry.android.core.SentryAndroid;
-import io.sentry.core.SentryLevel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,18 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (crash_reports) {
             Log.i("Kurzparkzonen", "crash reports are enabled");
-            Context ctx = this.getApplicationContext();
 
-          SentryAndroid.init(this, options -> {
-            // Add a callback that will be used before the event is sent to Sentry.
-            // With this callback, you can modify the event or, when returning null, also discard the event.
-            options.setBeforeSend((event, hint) -> {
-              if (SentryLevel.DEBUG.equals(event.getLevel()))
-                return null;
-              else
-                return event;
-            });
-          });
         } else {
             Log.i("Kurzparkzonen", "crash reports are disabled");
             userAgent += " PrivateMode";
