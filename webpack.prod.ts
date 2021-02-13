@@ -2,7 +2,7 @@ import * as webpack from "webpack";
 import merge from "webpack-merge";
 import common from './webpack.common';
 import {LicenseWebpackPlugin} from "license-webpack-plugin";
-import SriPlugin from 'webpack-subresource-integrity';
+import { SubresourceIntegrityPlugin } from 'webpack-subresource-integrity';
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import {CleanWebpackPlugin} from "clean-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
@@ -19,10 +19,7 @@ const config: webpack.Configuration = merge(common, {
     },
     devtool: "source-map",
     plugins: [
-        new SriPlugin({
-            hashFuncNames: ["sha256"],
-            enabled: true
-        }),
+        new SubresourceIntegrityPlugin(),
         new LicenseWebpackPlugin({
             // perChunkOutput: false
         }) as any,

@@ -55,7 +55,7 @@
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.1.5",
     "webpack-merge": "^5.7.2",
-    "webpack-subresource-integrity": "^1.1.0-rc.4"
+    "webpack-subresource-integrity": "^5.0.0-alpha.3"
   },
   "scripts": {
     "convert": "cd convert && ts-node --project ./tsconfig.json index.ts",
