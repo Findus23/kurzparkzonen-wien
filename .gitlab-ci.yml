@@ -48,7 +48,8 @@ fetch_data:
     - yarn install --pure-lockfile --ignore-engines
   script:
     - ./fetch.sh
-    - node convert.js
+    - cd convert
+    - ts-node --project ./tsconfig.json index.ts
   artifacts:
     paths:
       - processed/
@@ -60,14 +61,14 @@ webpack:
     - node_modules/
   stage: website_build
   image: node
-  before_script: 
+  before_script:
   - yarn install --pure-lockfile --ignore-engines
   script: yarn run build --no-progress
   artifacts:
     paths:
       - dist/
     expire_in: 1 week
-  
+
 lintDebug:
   <<: *android_jobs
   stage: android_build
