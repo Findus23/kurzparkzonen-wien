@@ -62,7 +62,7 @@ webpack:
   image: node
   before_script:
   - yarn install --pure-lockfile --ignore-engines
-  script: yarn run build --no-progress
+  script: yarn run build
   artifacts:
     paths:
       - dist/
