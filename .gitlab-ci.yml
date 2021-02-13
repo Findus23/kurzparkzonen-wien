@@ -48,8 +48,7 @@ fetch_data:
     - yarn install --pure-lockfile --ignore-engines
   script:
     - ./fetch.sh
-    - cd convert
-    - ts-node --project ./tsconfig.json index.ts
+    - yarn run convert
   artifacts:
     paths:
       - processed/
