@@ -6,12 +6,14 @@
         <div class="seperator <%= dateRange ? "" : "undefined" %>"></div>
     <% } %>
     <div class="body">
+        <% if (prop.ADRESSE) { %>
+            <p class="location"><%= prop.ADRESSE %></p>
+        <% } %>
         <% if (type === "Kurzparkzone") { %>
             <p class="location"><%= prop.BEZIRK %>. Bezirk</p>
         <% } else if (type === "Kurzparkstreifen") { %>
             <p class="location"><%= prop.STRNAM %> <%= prop.GELTUNGSBEREICH %></p>
         <% } else if (type === "AnrainerInnenparkplatz") { %>
-            <p class="location"><%= prop.ADRESSE %></p>
             <table>
                 <tr>
                     <td>Stellplätze:</td>
@@ -22,6 +24,37 @@
                     <td><%= prop.AUSNAHME_TXT.replace("ausgen. Fahrzeuge mit Parkkleber für den", "") %></td>
                 </tr>
             </table>
+        <% } else if (type === "Carsharing") { %>
+            <table>
+                <tr>
+                    <td>Stellplätze:</td>
+                    <td><%= prop.FZG_ANZAHL %></td>
+                </tr>
+            </table>
+        <% } else if (type === "Fußgängerzonen") { %>
+            <p><small><%= prop.AUSN_TEXT %></small></p>
+        <% } else if (type === "Garagen") { %>
+            <% if (prop.BEZEICHNUNG !== prop.ADRESSE) { %>
+                <p><%= prop.BEZEICHNUNG %></p>
+            <% } %>
+            <p><small><%= prop.BETREIBER %></small></p>
+            <table>
+                <tr>
+                    <td>Park & Ride:</td>
+                    <td><%= booleanToCheckmark(prop.PAR) %></td>
+                </tr>
+                <tr>
+                    <td>Behindertenparkplätze:</td>
+                    <td><%= booleanToCheckmark(prop.BPL) %></td>
+                </tr>
+            </table>
+        <% } else if (type === "Tempo 30 Zone") { %>
+            <p><%= prop.ZONE_NAME %></p>
+            <p><small>Die Informationen und Pläne zu den Tempo 30-Zonen haben keine Rechtsgültigkeit,
+                    sondern dienen lediglich der Veranschaulichung.</small></p>
+            <% } else if (type === "Verkaufsstelle") { %>
+                <p><%= prop.TYP %></p>
+
         <% } else if (type === "Behindertenparkplätze") { %>
             <p class="location"><%= prop.STRNAM %> <%= prop.GELTUNGSBEREICH %></p>
         <% } else if (type === "Geltungsbereich" || type === "Berechtigungszone") { %>

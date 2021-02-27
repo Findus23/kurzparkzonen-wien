@@ -11,11 +11,23 @@ const dataDir = "../data/";
 const processedDir = "../processed/";
 const dataFiles = readdirSync(dataDir);
 
+function toBoolean(text: string | undefined): boolean | undefined {
+    switch (text) {
+        case "Y":
+            return true
+        case "N":
+            return false
+        default:
+            return
+    }
+}
+
 
 dataFiles.forEach((filename: string) => {
     if (filename === ".gitkeep" || filename === "checksums.sha256" || filename.includes("formatted")) {
         return false;
     }
+    console.log("converting " + filename)
     const contents = readFileSync(dataDir + filename).toString();
     const geojson = JSON.parse(contents);
     // const nametype = path.parse(filename).name;
@@ -38,6 +50,21 @@ dataFiles.forEach((filename: string) => {
         delete feature.properties.FK_PRB;
         delete feature.id;
         delete feature.properties.SE_SDO_ROWID;
+        delete feature.properties.RECHT_TXT
+        if (feature.properties.GARAGE_ID) {
+            delete feature.properties.PLZ
+            delete feature.properties.ORT
+            feature.properties.ID = parseInt(feature.properties.GARAGE_ID)
+            delete feature.properties.GARAGE_ID
+            feature.properties.PAR = toBoolean(feature.properties.PARK_AND_RIDE)
+            delete feature.properties.PARK_AND_RIDE
+            feature.properties.BPL = toBoolean(feature.properties.BEHINDERTENPARKPL)
+            delete feature.properties.BEHINDERTENPARKPL
+            delete feature.properties.WEBLINK_BETR_DE
+            delete feature.properties.WEBLINK_BETR_EN
+            delete feature.properties.WEBLINK_WK_DE
+            delete feature.properties.WEBLINK_WK_EN
+        }
     });
     let result;
     if (filename === "Behindertenparkplätze.json") {

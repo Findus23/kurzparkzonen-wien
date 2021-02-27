@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         zonenPane.style.zIndex = "300";
     }
     map.on("overlayadd overlayremove baselayerchange", function () {
-        console.info(control.saveLayers());
+        control.saveLayers();
     });
 
     L.control.locate().addTo(map);

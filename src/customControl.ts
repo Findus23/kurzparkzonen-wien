@@ -51,6 +51,36 @@ function loadLayerData(layers: [SomeLayerObject], map: L.Map) {
                     layer.addData(berechtigungsZone);
                 });
                 break;
+            case "Carsharing":
+                // @ts-ignore
+                import (/* webpackChunkName: "Carsharing" */"../processed/Carsharing").then(carsharing => {
+                    layer.addData(carsharing);
+                });
+                break;
+            case "Fußgängerzonen":
+                // @ts-ignore
+                import (/* webpackChunkName: "fusgangerzonen" */"../processed/Fußgängerzonen").then(fusgangerzonen => {
+                    layer.addData(fusgangerzonen);
+                });
+                break;
+            case "Garagen":
+                // @ts-ignore
+                import (/* webpackChunkName: "garagen" */"../processed/Garagen").then(garagen => {
+                    layer.addData(garagen);
+                });
+                break;
+            case "Tempo 30 Zone":
+                // @ts-ignore
+                import (/* webpackChunkName: "tempo30" */"../processed/Tempo30").then(tempo30 => {
+                    layer.addData(tempo30);
+                });
+                break;
+            case "Verkaufsstellen":
+                // @ts-ignore
+                import (/* webpackChunkName: "verkaufsstellen" */"../processed/Verkaufsstellen").then(verkaufsstellen => {
+                    layer.addData(verkaufsstellen);
+                });
+                break;
         }
     });
 }
@@ -90,17 +120,20 @@ L.Control.Layers.include({
             const enabledMapLayer = parsedStorage.enabledMapLayer;
             // @ts-ignore
             mapLayers[enabledMapLayer].addTo(map);
+            overlayLayers.forEach(function (name: string) {
+                dataLayers[name].addTo(map);
+            });
         } catch (error) {
             if (process.env.NODE_ENV === "production") {
                 mapLayers["Basemap.at"].addTo(map);
             } else {
                 mapLayers.Leer.addTo(map);
             }
-            overlayLayers = ["Parkstreifen", "Parkzonen"]
+            ["Parkstreifen", "Parkzonen"].forEach(function (name) {
+                dataLayers[name].addTo(map);
+            });
+
         }
-        overlayLayers.forEach(function (name: string) {
-            dataLayers[name].addTo(map);
-        });
         loadLayerData(this._layers, this._map);
         return true;
 
