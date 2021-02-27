@@ -3,15 +3,15 @@ import L, {TileLayerOptions} from "leaflet";
 const blankLayer = L.tileLayer("");
 const OpenStreetMapMapnik = L.tileLayer("https://maps.lw1.at/tiles/1.0.0/osm/GLOBAL_MERCATOR/{z}/{x}/{y}.png", {
     maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 } as CustomTileLayerOptions);
 const ThunderforestOpenCycleMap = L.tileLayer("https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}", {
-    attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     apikey: process.env.API_KEY,
     maxZoom: 22
 } as CustomTileLayerOptions);
 const ThunderforestOutdoors = L.tileLayer("https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey={apikey}", {
-    attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     apikey: process.env.API_KEY,
     maxZoom: 22
 } as CustomTileLayerOptions);
@@ -23,28 +23,59 @@ const BasemapATbasemap = L.tileLayer("https://maps.lw1.at/tiles/1.0.0/basemap/GL
     bounds: [[46.35877, 8.782379], [49.037872, 17.189532]]
 } as CustomTileLayerOptions);
 const ThunderforestTransport = L.tileLayer("https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey={apikey}", {
-    attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     apikey: process.env.API_KEY,
     maxZoom: 22
 } as CustomTileLayerOptions);
 
-const StamenTonerLite = L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}", {
-    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    subdomains: "abcd",
+// https://{s}.piano.tiles.quaidorsay.fr/fr/{z}/{x}/{y}.png
+const Piano = L.tileLayer('https://maps.lw1.at/tiles/1.0.0/piano/GLOBAL_MERCATOR/{z}/{x}/{y}.png', {
+    attribution: 'Tiles <a href="https://github.com/tilery/pianoforte">PianoFr</a> | &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
     minZoom: 0,
     maxZoom: 20,
-    ext: "png"
-} as CustomTileLayerOptions);
+});
+
+//https://{s}.forte.tiles.quaidorsay.fr/fr/{z}/{x}/{y}.png
+const Forte = L.tileLayer('https://maps.lw1.at/tiles/1.0.0/forte/GLOBAL_MERCATOR/{z}/{x}/{y}.png', {
+    attribution: 'Tiles <a href="https://github.com/tilery/pianoforte">PianoFr</a> | &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+    minZoom: 0,
+    maxZoom: 20,
+});
+
+// https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png
+const CyclOSM = L.tileLayer('https://maps.lw1.at/tiles/1.0.0/cyclOSM/GLOBAL_MERCATOR/{z}/{x}/{y}.png', {
+    maxZoom: 20,
+    attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+
+// https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm-lite/{z}/{x}/{y}.png
+const CyclOSMLite = L.tileLayer('https://maps.lw1.at/tiles/1.0.0/cyclOSM-lite/GLOBAL_MERCATOR/{z}/{x}/{y}.png', {
+    maxZoom: 20,
+    attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+
+// https://{s}.tiles.openrailwaymap.org/standard/{z}/{x}/{y}.png
+const OpenRailwayMap = L.tileLayer('https://maps.lw1.at/tiles/1.0.0/openrailway/GLOBAL_MERCATOR/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Map style: &copy; <a href="https://www.OpenRailwayMap.org">OpenRailwayMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+});
 
 export const mapLayers = {
     "Leer": blankLayer,
     "Basemap.at": BasemapATbasemap,
     "Standard-OSM": OpenStreetMapMapnik,
     "Wanderkarte": ThunderforestOutdoors,
-    "Fahrradkarte": ThunderforestOpenCycleMap,
+    "Fahrradkarte": CyclOSM,
     "Öffi": ThunderforestTransport,
-    "Schwarz-Weiß": StamenTonerLite
+    "Hell": Forte,
+    "Einfach": Piano,
+    // "dfdssdfsdfdsf": Piano
 };
+
+export const optionalMapLayers = {
+    "Öffi-Overlay": OpenRailwayMap,
+    "Radfahrer-Overlay": CyclOSMLite
+}
 
 declare var process: {
     env: {

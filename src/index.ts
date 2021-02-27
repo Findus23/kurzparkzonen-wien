@@ -2,7 +2,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {dataLayers} from "./dataLayers/dataLayers";
 import "./style.scss";
-import {mapLayers} from "./tilelayers";
+import {mapLayers, optionalMapLayers} from "./tilelayers";
 import {initAnalytics} from "./analytics";
 import "./customControl";
 import {CustomControl} from "./customControl";
@@ -16,8 +16,8 @@ if (process.env.NODE_ENV === "production") {
 document.addEventListener("DOMContentLoaded", function () {
     const map = L.map("map").setView([48.203527523471344, 16.37383544767511], 12);
     window.map = map;
-
-    const control = L.control.layers(mapLayers, dataLayers).addTo(map) as CustomControl;
+    const optionalLayers = Object.assign(dataLayers, optionalMapLayers);
+    const control = L.control.layers(mapLayers, optionalLayers).addTo(map) as CustomControl;
 
 
     if (!control.restoreLayers()) {

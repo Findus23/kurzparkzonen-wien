@@ -8,6 +8,10 @@ function loadLayerData(layers: [SomeLayerObject], map: L.Map) {
         if (!obj.overlay || !map.hasLayer(obj.layer)) {
             return false
         }
+        if (obj.layer instanceof L.TileLayer) {
+            // no data needs to be loaded as it is a TileLayer
+            return true
+        }
         const layer = dataLayers[obj.name];
         layer.clearLayers();
         switch (obj.name) {
@@ -58,8 +62,7 @@ L.Control.Layers.include({
         let enabledMapLayer;
 
         // loop through all layers in control
-        // @ts-ignore
-        this._layers.forEach((obj) => {
+        this._layers.forEach((obj: any) => {
             // check if layer is an overlay
             if (this._map.hasLayer(obj.layer)) {
                 if (obj.overlay) {
@@ -79,17 +82,15 @@ L.Control.Layers.include({
     },
     restoreLayers: function () {
         const map = this._map;
-        const fromStorage = localStorage.getItem("layers");
         let overlayLayers;
-        if (fromStorage) {
+        try {
             // @ts-ignore
             const parsedStorage = JSON.parse(localStorage.getItem("layers"));
             overlayLayers = parsedStorage.overlayLayers;
             const enabledMapLayer = parsedStorage.enabledMapLayer;
             // @ts-ignore
             mapLayers[enabledMapLayer].addTo(map);
-
-        } else {
+        } catch (error) {
             if (process.env.NODE_ENV === "production") {
                 mapLayers["Basemap.at"].addTo(map);
             } else {

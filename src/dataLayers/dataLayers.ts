@@ -11,6 +11,6 @@ export const dataLayers: { [s: string]: L.GeoJSON } = {
     "AnrainerInnenparkplätze": anrainerLayer,
     "Behindertenparkplätze": bpLayer,
     "Geltungsbereiche": geltungsbereicheLayer,
-    "Berechtigungszone": berechtigungszoneLayer
+    "Berechtigungszone": berechtigungszoneLayer,
 };
 
