@@ -21,7 +21,7 @@ const config: webpack.Configuration = merge(common, {
     plugins: [
         new SubresourceIntegrityPlugin(),
         new LicenseWebpackPlugin({
-            // perChunkOutput: false
+            skipChildCompilers: true
         }) as any,
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin({patterns: [{from: "icon", to: "icon"}]}),
