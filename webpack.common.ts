@@ -62,8 +62,8 @@ const config: webpack.Configuration = {
                 test: /\.scss$/,
                 use: [
                     !production
-                        ? "style-loader"
-                        : MiniCssExtractPlugin.loader,
+                      ? "style-loader"
+                      : MiniCssExtractPlugin.loader,
                     "css-loader",
                     {
                         loader: "postcss-loader",
@@ -93,7 +93,7 @@ const config: webpack.Configuration = {
                 use: ["url-loader"]
             },
             {
-                test: /popup\.ejs/,
+                test: /\.ejs$/,
                 loader: "ejs-webpack-loader"
             }
         ]

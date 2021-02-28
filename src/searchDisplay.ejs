@@ -1,0 +1,16 @@
+<% if (icon) { %>
+    <img src="<%= icon %>" aria-hidden="true" alt="icon">
+    <br>
+<% } %>
+<% if (display_name) { %>
+    <%= display_name %>
+    <br>
+<% } %>
+<% if (address.road || address.building) { %>
+    <%= address.building %> <%= address.road %> <%= address.house_number %>
+    <br>
+<% } %>
+<% if (bezirk) { %>
+    <%= bezirk %>. Bezirk
+    <br>
+<% } %>
