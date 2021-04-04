@@ -60,6 +60,14 @@ const OpenRailwayMap = L.tileLayer('https://maps.lw1.at/tiles/1.0.0/openrailway/
     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Map style: &copy; <a href="https://www.OpenRailwayMap.org">OpenRailwayMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
 });
 
+export const OwnLayer = L.tileLayer('/tiles/{z}/{x}/{y}.png', {
+    maxNativeZoom: 14,
+    minNativeZoom: 6,
+    bounds: [[48.08, 16.18], [48.33, 16.59]],
+    attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Map style: &copy (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+});
+
+
 export const mapLayers = {
     "Leer": blankLayer,
     "Basemap.at": BasemapATbasemap,

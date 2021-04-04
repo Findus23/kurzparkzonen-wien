@@ -2,7 +2,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {dataLayers} from "./dataLayers/dataLayers";
 import "./style.scss";
-import {mapLayers, optionalMapLayers} from "./tilelayers";
+import {mapLayers, optionalMapLayers, OwnLayer} from "./tilelayers";
 import {initAnalytics} from "./analytics";
 import "./customControl";
 import {CustomControl} from "./customControl";
@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!control.restoreLayers()) {
 
     }
+    map.addLayer(OwnLayer)
     map.createPane("zonenPane");
     const zonenPane = map.getPane("zonenPane");
     if (zonenPane) {
