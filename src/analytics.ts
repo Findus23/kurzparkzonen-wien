@@ -1,4 +1,9 @@
-function initMatomo(webView: boolean) {
+export const isWebview = navigator.userAgent.indexOf("Kurzparkzonen") !== -1;
+export const isOlderAndroid = navigator.userAgent.indexOf("OlderAndroid") !== -1;
+export const optOut = navigator.userAgent.indexOf("PrivateMode") !== -1;
+
+
+function initMatomo() {
 // eslint-disable-next-line no-use-before-define
     // @ts-ignore
     const _paq: [[any, any, any] | [any, any] | [any]] = _paq || [];
@@ -24,15 +29,13 @@ function initMatomo(webView: boolean) {
             firstScript.parentNode.insertBefore(script, firstScript);
         }
     })();
-    _paq.push(["setCustomDimension", 1, webView]);
+    _paq.push(["setCustomDimension", 1, isWebview]);
 }
 
 
 export function initAnalytics() {
-    const isWebview = navigator.userAgent.indexOf("Kurzparkzonen") !== -1;
-    const optOut = navigator.userAgent.indexOf("PrivateMode") !== -1;
     if (!optOut) {
-        initMatomo(isWebview);
+        initMatomo();
     }
 }
 

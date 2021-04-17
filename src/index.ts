@@ -3,7 +3,7 @@ import "leaflet/dist/leaflet.css";
 import {dataLayers} from "./dataLayers/dataLayers";
 import "./style.scss";
 import {mapLayers, optionalMapLayers} from "./tilelayers";
-import {initAnalytics} from "./analytics";
+import {initAnalytics, isOlderAndroid, isWebview} from "./analytics";
 import "./customControl";
 import {CustomControl} from "./customControl";
 import {searchPopupHtml} from "./searchPopup";
@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === "production") {
     initAnalytics();
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+function mapInit() {
     const map = L.map("map").setView([48.203527523471344, 16.37383544767511], 12);
     window.map = map;
     const optionalLayers = Object.assign(dataLayers, optionalMapLayers);
@@ -68,7 +68,15 @@ document.addEventListener("DOMContentLoaded", function () {
         map.fitBounds(result.bbox);
     })
     a.addTo(map)
-}, false);
+}
+
+if (isWebview && isOlderAndroid) {
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(mapInit, 50)
+    }, false);
+} else {
+    document.addEventListener("DOMContentLoaded", mapInit, false);
+}
 
 declare global {
     interface Window {

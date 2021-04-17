@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
             userAgent += " PrivateMode";
         }
 
+        if (android.os.Build.VERSION.SDK_INT < 30) {
+            Log.i("Kurzparkzonen", "detected older Android version");
+            userAgent += " OlderAndroid";
+        }
+
         setContentView(R.layout.activity_main);
         webView = findViewById(R.id.activity_main_webview);
         rootView = findViewById(R.id.action_bar_root);
