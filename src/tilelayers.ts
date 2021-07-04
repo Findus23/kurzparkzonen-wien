@@ -1,4 +1,5 @@
-import L, {TileLayerOptions} from "leaflet";
+import L, {Browser, TileLayerOptions} from "leaflet";
+import retina = Browser.retina;
 
 const blankLayer = L.tileLayer("");
 const OpenStreetMapMapnik = L.tileLayer("https://maps.lw1.at/tiles/1.0.0/osm/GLOBAL_MERCATOR/{z}/{x}/{y}.png", {
@@ -15,10 +16,14 @@ const ThunderforestOutdoors = L.tileLayer("https://{s}.tile.thunderforest.com/ou
     apikey: process.env.API_KEY,
     maxZoom: 22
 } as CustomTileLayerOptions);
-const BasemapATbasemap = L.tileLayer("https://maps.lw1.at/tiles/1.0.0/basemap/GLOBAL_MERCATOR/{z}/{x}/{y}.{format}", {
+const basemap_lq_url="https://maps.lw1.at/tiles/1.0.0/basemap/GLOBAL_MERCATOR/{z}/{x}/{y}.{format}"
+const basemap_hq_url="https://maps.lw1.at/tiles/1.0.0/basemap_hq/webmercator_hq/{z}/{x}/{y}.{format}"
+console.info(retina)
+const basemap_url=retina?basemap_hq_url:basemap_lq_url
+console.info(basemap_url)
+const BasemapATbasemap = L.tileLayer(basemap_url, {
     maxZoom: 19,
     attribution: 'Datenquelle: <a href="https://www.basemap.at">basemap.at</a>',
-    subdomains: ["", "1", "2", "3", "4"],
     format: "png",
     bounds: [[46.35877, 8.782379], [49.037872, 17.189532]]
 } as CustomTileLayerOptions);
