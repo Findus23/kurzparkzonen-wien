@@ -7,8 +7,8 @@ android {
         applicationId "at.lw1.kurzparkzonen.wien"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 33
-        versionName "0.6.0"
+        versionCode 34
+        versionName "0.6.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
