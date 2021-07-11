@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.webkit.GeolocationPermissions;
+import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -251,5 +252,18 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.i("BackButton", "pressed");
+        webView.evaluateJavascript("closePopup();", returnString -> {
+            if (returnString.equals("false")) {
+                Log.i("BackButton", "no popup was open");
+                super.onBackPressed();
+            } else  {
+                Log.i("BackButton", "popup was closed");
+            }
+        });
     }
 }

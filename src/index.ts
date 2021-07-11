@@ -9,6 +9,7 @@ import {CustomControl} from "./customControl";
 import {searchPopupHtml} from "./searchPopup";
 //@ts-ignore
 import {GeocodingResult, NominatimResult} from "leaflet-control-geocoder/dist/geocoders";
+import {ExtendedMap} from "./interfaces";
 
 const searchPopupTemplate = require("./searchPopup.ejs");
 const searchDisplayTemplate = require("./searchDisplay.ejs");
@@ -21,7 +22,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 function mapInit() {
-    const map = L.map("map").setView([48.203527523471344, 16.37383544767511], 12);
+    const map: ExtendedMap = L.map("map").setView([48.203527523471344, 16.37383544767511], 12);
     window.map = map;
     const optionalLayers = Object.assign(dataLayers, optionalMapLayers);
     const control = L.control.layers(mapLayers, optionalLayers).addTo(map) as CustomControl;
@@ -78,8 +79,17 @@ if (isWebview && isOlderAndroid) {
     document.addEventListener("DOMContentLoaded", mapInit, false);
 }
 
+function closePopup() {
+    const popupWasOpen = !!window.map._popup
+    window.map.closePopup()
+    return popupWasOpen
+}
+
+window.closePopup = closePopup
+
 declare global {
     interface Window {
-        map: L.Map;
+        map: ExtendedMap;
+        closePopup: () => boolean;
     }
 }

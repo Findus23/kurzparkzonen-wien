@@ -16,11 +16,11 @@ const ThunderforestOutdoors = L.tileLayer("https://{s}.tile.thunderforest.com/ou
     apikey: process.env.API_KEY,
     maxZoom: 22
 } as CustomTileLayerOptions);
-const basemap_lq_url="https://maps.lw1.at/tiles/1.0.0/basemap/GLOBAL_MERCATOR/{z}/{x}/{y}.{format}"
-const basemap_hq_url="https://maps.lw1.at/tiles/1.0.0/basemap_hq/webmercator_hq/{z}/{x}/{y}.{format}"
-console.info(retina)
-const basemap_url=retina?basemap_hq_url:basemap_lq_url
-console.info(basemap_url)
+const basemap_lq_url = "https://maps.lw1.at/tiles/1.0.0/basemap/GLOBAL_MERCATOR/{z}/{x}/{y}.{format}"
+const basemap_hq_url = "https://maps.lw1.at/tiles/1.0.0/basemap_hq/webmercator_hq/{z}/{x}/{y}.{format}"
+
+const basemap_url = retina ? basemap_hq_url : basemap_lq_url
+
 const BasemapATbasemap = L.tileLayer(basemap_url, {
     maxZoom: 19,
     attribution: 'Datenquelle: <a href="https://www.basemap.at">basemap.at</a>',

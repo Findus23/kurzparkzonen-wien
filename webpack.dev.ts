@@ -19,3 +19,4 @@ const config: Configuration = merge(common, {
 } as Configuration)
 
 export default config
+console.log("http://localhost:8087/")

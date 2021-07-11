@@ -1,4 +1,4 @@
-import {GeoJSON} from "leaflet";
+import L, {GeoJSON} from "leaflet";
 
 export interface Feature extends GeoJSON.Feature {
     properties: {
@@ -41,4 +41,7 @@ export interface Feature extends GeoJSON.Feature {
     }
 }
 
+export interface ExtendedMap extends L.Map {
+    _popup?: L.Map | null
+}
 
