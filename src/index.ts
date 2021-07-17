@@ -40,7 +40,11 @@ function mapInit() {
         control.saveLayers();
     });
 
-    L.control.locate().addTo(map);
+    L.control.locate({
+        locateOptions: {
+            enableHighAccuracy: true
+        }
+    }).addTo(map);
     const viennabbox = ["48.1179069", "48.3226679", "16.181831", "16.5775132"]
     //@ts-ignore
     const geocoder = L.Control.Geocoder.nominatim({
