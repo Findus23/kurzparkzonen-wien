@@ -1,5 +1,7 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import "leaflet.locatecontrol/dist/L.Control.Locate.css";
+
 import {dataLayers} from "./dataLayers/dataLayers";
 import "./style.scss";
 import {mapLayers, optionalMapLayers} from "./tilelayers";

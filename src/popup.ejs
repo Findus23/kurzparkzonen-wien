@@ -52,8 +52,8 @@
             <p><%= prop.ZONE_NAME %></p>
             <p><small>Die Informationen und Pläne zu den Tempo 30-Zonen haben keine Rechtsgültigkeit,
                     sondern dienen lediglich der Veranschaulichung.</small></p>
-            <% } else if (type === "Verkaufsstelle") { %>
-                <p><%= prop.TYP %></p>
+        <% } else if (type === "Verkaufsstelle") { %>
+            <p><%= prop.TYP %></p>
 
         <% } else if (type === "Behindertenparkplätze") { %>
             <p class="location"><%= prop.STRNAM %> <%= prop.GELTUNGSBEREICH %></p>
@@ -83,6 +83,9 @@
             <p><%= prop.ZEITRAUM %></p>
         <% } if (prop.DAUER) { %>
             <p>Parkdauer: <%= prop.DAUER %></p>
+        <% } %>
+        <% if (showDate) { %>
+            <p>Gültig ab: <%= date %></p>
         <% } %>
     </div>
 </div>

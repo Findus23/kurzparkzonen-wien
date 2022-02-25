@@ -16,6 +16,7 @@ export interface Feature extends GeoJSON.Feature {
         FK_PRB?: string
         OBJECTID?: string
         SE_SDO_ROWID?: string
+        GUELTIG_VON?: string
 
         //Garagen
         GARAGE_ID?: string

@@ -8,8 +8,8 @@ const config: Configuration = merge(common, {
     devtool: "eval-cheap-source-map",
     devServer: {
         historyApiFallback: true,
-        noInfo: true,
-        overlay: true,
+        // noInfo: true,
+        // overlay: true,
         port: 8087
     },
     plugins: [

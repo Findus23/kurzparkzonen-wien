@@ -90,7 +90,7 @@ const config: webpack.Configuration = {
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
-                use: ["url-loader"]
+                type: 'asset'
             },
             {
                 test: /\.ejs$/,
