@@ -124,7 +124,7 @@ L.Control.Layers.include({
                 dataLayers[name].addTo(map);
             });
         } catch (error) {
-            if (process.env.NODE_ENV === "production") {
+            if (import.meta.env.PROD) {
                 mapLayers["Basemap.at"].addTo(map);
             } else {
                 mapLayers.Leer.addTo(map);

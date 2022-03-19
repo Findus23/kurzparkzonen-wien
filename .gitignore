@@ -3,7 +3,8 @@ node_modules/
 *.log
 *.txt
 dist/
-
+dist.bak/
+!public/licenses.txt
 stats.json
 apikey.sh
 !processed/.gitkeep
@@ -12,3 +13,4 @@ processed/*.json
 data/*.json
 src/apikey.js
 fdroid/
+.env

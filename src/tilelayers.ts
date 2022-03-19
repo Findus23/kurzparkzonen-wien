@@ -8,12 +8,12 @@ const OpenStreetMapMapnik = L.tileLayer("https://maps.lw1.at/tiles/1.0.0/osm/GLO
 } as CustomTileLayerOptions);
 const ThunderforestOpenCycleMap = L.tileLayer("https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey={apikey}", {
     attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    apikey: process.env.API_KEY,
+    apikey: import.meta.env.VITE_API_KEY,
     maxZoom: 22
 } as CustomTileLayerOptions);
 const ThunderforestOutdoors = L.tileLayer("https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey={apikey}", {
     attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    apikey: process.env.API_KEY,
+    apikey: import.meta.env.VITE_API_KEY,
     maxZoom: 22
 } as CustomTileLayerOptions);
 const basemap_lq_url = "https://maps.lw1.at/tiles/1.0.0/basemap/GLOBAL_MERCATOR/{z}/{x}/{y}.{format}"
@@ -29,7 +29,7 @@ const BasemapATbasemap = L.tileLayer(basemap_url, {
 } as CustomTileLayerOptions);
 const ThunderforestTransport = L.tileLayer("https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey={apikey}", {
     attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    apikey: process.env.API_KEY,
+    apikey: import.meta.env.VITE_API_KEY,
     maxZoom: 22
 } as CustomTileLayerOptions);
 

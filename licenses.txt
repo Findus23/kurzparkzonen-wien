@@ -1,3 +1,0 @@
-Javascript Licenses: https://kurzparkzonen-wien.lw1.at/main.licenses.txt
-
-CSS Licenses: https://kurzparkzonen-wien.lw1.at/mini-css-extract-plugin.licenses.txt

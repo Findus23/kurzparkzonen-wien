@@ -1,8 +1,10 @@
 import {parseDateRange} from "./daterange/daterangeparser";
 import {checkInRange} from "./daterange/checkInRange";
 import {Feature} from "./interfaces";
+// @ts-ignore
+import template from "./popup.ejs";
+import {ClientFunction} from "ejs";
 
-const template = require("./popup.ejs");
 window.template = template;
 
 function booleanToCheckmark(value: boolean): string {
@@ -43,12 +45,12 @@ export function getPopupText(feature: Feature, type: string): () => string {
             showDate: showDate,
             date: date.toLocaleDateString()
         };
-        return template(data);
+        return window.template(data);
     };
 }
 
 declare global {
     interface Window {
-        template: () => string;
+        template: ClientFunction;
     }
 }

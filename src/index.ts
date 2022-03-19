@@ -8,18 +8,16 @@ import {mapLayers, optionalMapLayers} from "./tilelayers";
 import {initAnalytics, isOlderAndroid, isWebview} from "./analytics";
 import "./customControl";
 import {CustomControl} from "./customControl";
-import {searchPopupHtml} from "./searchPopup";
-//@ts-ignore
+import "leaflet-control-geocoder";
+import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 import {GeocodingResult, NominatimResult} from "leaflet-control-geocoder/dist/geocoders";
 import {ExtendedMap} from "./interfaces";
+import "leaflet.locatecontrol";
 
-const searchPopupTemplate = require("./searchPopup.ejs");
-const searchDisplayTemplate = require("./searchDisplay.ejs");
+import {searchPopupHtml} from "./searchPopup";
 
 
-require("leaflet.locatecontrol");
-
-if (process.env.NODE_ENV === "production") {
+if (import.meta.env.PROD) {
     initAnalytics();
 }
 
@@ -55,7 +53,7 @@ function mapInit() {
             viewbox: `${viennabbox[3]},${viennabbox[1]},${viennabbox[2]},${viennabbox[0]}`
         },
         htmlTemplate: function (r: NominatimResult) {
-            return searchPopupHtml(r, searchDisplayTemplate, undefined)
+            return searchPopupHtml(r, "searchDisplayTemplate", undefined)
         }
     })
     //@ts-ignore
@@ -66,11 +64,11 @@ function mapInit() {
     });
     a.on('markgeocode', function (e: any) {
         const result = e.geocode as GeocodingResult
-        const html = searchPopupHtml(result.properties, searchPopupTemplate, result.icon)
+        const html = searchPopupHtml(result.properties, "searchPopupTemplate", result.icon)
         const marker = new L.CircleMarker(result.center)
-          .bindPopup(html)
-          .addTo(map)
-          .openPopup();
+            .bindPopup(html)
+            .addTo(map)
+            .openPopup();
 
         map.fitBounds(result.bbox);
     })

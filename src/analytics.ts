@@ -6,7 +6,7 @@ export const optOut = navigator.userAgent.indexOf("PrivateMode") !== -1;
 function initMatomo() {
 // eslint-disable-next-line no-use-before-define
     // @ts-ignore
-    const _paq: [[any, any, any] | [any, any] | [any]] = _paq || [];
+    const _paq: [[any, any, any] | [any, any] | [any]] = [];
     window._paq = _paq;
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
     _paq.push(['disableCookies']);

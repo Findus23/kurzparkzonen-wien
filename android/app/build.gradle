@@ -6,7 +6,7 @@ android {
     buildToolsVersion "32.0.0"
     defaultConfig {
         applicationId "at.lw1.kurzparkzonen.wien"
-        minSdkVersion 21
+        minSdkVersion vaSc
         targetSdkVersion 31
         versionCode 37
         versionName "0.8.0"
