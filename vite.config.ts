@@ -41,6 +41,7 @@ export default defineConfig({
     plugins: [ejsPlugin(), legacy({
         targets: ['defaults', 'not IE 11']
     })],
+    base: "./",
     build: {
         target: "es2018",
         minify: "terser",

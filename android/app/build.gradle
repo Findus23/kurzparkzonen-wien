@@ -6,10 +6,10 @@ android {
     buildToolsVersion "32.0.0"
     defaultConfig {
         applicationId "at.lw1.kurzparkzonen.wien"
-        minSdkVersion vaSc
+        minSdkVersion 23
         targetSdkVersion 31
-        versionCode 37
-        versionName "0.8.0"
+        versionCode 38
+        versionName "0.9.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
