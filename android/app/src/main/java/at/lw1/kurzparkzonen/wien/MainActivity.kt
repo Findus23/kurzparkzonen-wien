@@ -11,15 +11,61 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.webkit.GeolocationPermissions
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
+import androidx.webkit.WebViewAssetLoader
+import androidx.webkit.WebViewClientCompat
+
+
+
+
+private class LocalContentWebViewClient(
+    private val assetLoader: WebViewAssetLoader,
+    private val mainActivity: MainActivity
+) :
+    WebViewClientCompat() {
+    @RequiresApi(21)
+    override fun shouldInterceptRequest(
+        view: WebView,
+        request: WebResourceRequest
+    ): WebResourceResponse? {
+        val intercepted = assetLoader.shouldInterceptRequest(request.url)
+        if (request.url.toString().endsWith("js")) {
+            intercepted?.mimeType = "text/javascript"
+        }
+        return intercepted;
+    }
+
+    // to support API < 21
+    override fun shouldInterceptRequest(
+        view: WebView,
+        url: String
+    ): WebResourceResponse? {
+        val intercepted = assetLoader.shouldInterceptRequest(Uri.parse(url))
+        if (Uri.parse(url).toString().endsWith("js")) {
+            intercepted?.mimeType = "text/javascript"
+        }
+        return intercepted;
+
+    }
+
+    override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+        if (url.contains("appassets.androidplatform.net")) {
+            view.loadUrl(url)
+            return false
+        } else {
+            val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            mainActivity.startActivity(i)
+            return true
+        }
+    }
+}
+
 
 class MainActivity : AppCompatActivity() {
     private val MY_PERMISSIONS_REQUEST_LOCATION: Int = 1234;
@@ -56,8 +102,12 @@ class MainActivity : AppCompatActivity() {
         val webView = webView
         if (webView !== null) {
             WebView.setWebContentsDebuggingEnabled(true)
+            val assetLoader = WebViewAssetLoader.Builder()
+                .addPathHandler("/", WebViewAssetLoader.AssetsPathHandler(this))
+//                .addPathHandler("/res/", WebViewAssetLoader.ResourcesPathHandler(this))
+                .build()
+            webView.webViewClient = LocalContentWebViewClient(assetLoader,this)
             webView.settings.builtInZoomControls = false
-            webView.webViewClient = GeoWebViewClient()
             // Below required for geolocation
             webView.settings.javaScriptEnabled = true
             webView.settings.allowUniversalAccessFromFileURLs = true
@@ -68,7 +118,7 @@ class MainActivity : AppCompatActivity() {
             webView.settings.domStorageEnabled = true
             webView.settings.userAgentString = userAgent
             webView.settings.setGeolocationDatabasePath(filesDir.path)
-            webView.loadUrl("file:///android_asset/dist/index.html")
+            webView.loadUrl("https://appassets.androidplatform.net/dist/index.html")
         }
     }
 
@@ -126,21 +176,6 @@ class MainActivity : AppCompatActivity() {
                 // Tell the WebView that permission has been granted
                 callback.invoke(origin, true, false)
             }
-        }
-    }
-
-    /**
-     * WebViewClient subclass loads all hyperlinks in the existing WebView
-     */
-    inner class GeoWebViewClient : WebViewClient() {
-        override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-            if (url.contains("android_asset")) {
-                view.loadUrl(url)
-            } else {
-                val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                startActivity(i)
-            }
-            return true
         }
     }
 
