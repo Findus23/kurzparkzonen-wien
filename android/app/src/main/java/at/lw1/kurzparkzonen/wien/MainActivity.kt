@@ -29,7 +29,6 @@ private class LocalContentWebViewClient(
     private val mainActivity: MainActivity
 ) :
     WebViewClientCompat() {
-    @RequiresApi(21)
     override fun shouldInterceptRequest(
         view: WebView,
         request: WebResourceRequest
@@ -41,19 +40,8 @@ private class LocalContentWebViewClient(
         return intercepted;
     }
 
-    // to support API < 21
-    override fun shouldInterceptRequest(
-        view: WebView,
-        url: String
-    ): WebResourceResponse? {
-        val intercepted = assetLoader.shouldInterceptRequest(Uri.parse(url))
-        if (Uri.parse(url).toString().endsWith("js")) {
-            intercepted?.mimeType = "text/javascript"
-        }
-        return intercepted;
 
-    }
-
+    @Deprecated("Deprecated in Java")
     override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
         if (url.contains("appassets.androidplatform.net")) {
             view.loadUrl(url)
