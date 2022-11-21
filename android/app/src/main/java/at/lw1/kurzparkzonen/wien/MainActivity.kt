@@ -101,7 +101,6 @@ class MainActivity : AppCompatActivity() {
             webView.settings.allowUniversalAccessFromFileURLs = true
             webView.settings.setGeolocationEnabled(true)
             webView.webChromeClient = GeoWebChromeClient()
-            webView.settings.setAppCacheEnabled(true)
             webView.settings.databaseEnabled = true
             webView.settings.domStorageEnabled = true
             webView.settings.userAgentString = userAgent
