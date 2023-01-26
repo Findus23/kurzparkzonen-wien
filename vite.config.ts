@@ -44,12 +44,6 @@ export default defineConfig({
     base: "./",
     build: {
         target: "es2018",
-        minify: "terser",
-        terserOptions: {
-            mangle: {
-                reserved: ["_paq"]
-            }
-        }
     },
 
 })

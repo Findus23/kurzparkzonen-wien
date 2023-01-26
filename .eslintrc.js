@@ -278,6 +278,5 @@ module.exports = {
             "error",
             "never"
         ]
-    },
-    "globals": { "_paq": true}
+    }
 };
