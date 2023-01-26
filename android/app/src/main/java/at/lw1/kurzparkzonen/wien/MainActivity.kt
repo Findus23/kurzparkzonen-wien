@@ -209,6 +209,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         Log.i("BackButton", "pressed")
         Log.i("BackButton", webView.toString())
