@@ -65,6 +65,14 @@ const OpenRailwayMap = L.tileLayer('https://maps.lw1.at/tiles/1.0.0/openrailway/
     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Map style: &copy; <a href="https://www.OpenRailwayMap.org">OpenRailwayMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
 });
 
+const BasemapATorthofoto = L.tileLayer("https://maps.lw1.at/tiles/1.0.0/basemap_orthofoto/GLOBAL_MERCATOR/{z}/{x}/{y}.jpeg", {
+    maxZoom: 19,
+    attribution: 'Datenquelle: <a href="https://www.basemap.at">basemap.at</a>',
+    format: "jpeg",
+    bounds: [[46.35877, 8.782379], [49.037872, 17.189532]]
+} as CustomTileLayerOptions);
+
+
 export const mapLayers = {
     "Leer": blankLayer,
     "Basemap.at": BasemapATbasemap,
@@ -74,6 +82,7 @@ export const mapLayers = {
     "Öffi": ThunderforestTransport,
     "Hell": Forte,
     "Einfach": Piano,
+    "Orthofoto": BasemapATorthofoto,
     // "dfdssdfsdfdsf": Piano
 };
 
