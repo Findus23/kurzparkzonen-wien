@@ -39,7 +39,7 @@
   "scripts": {
     "clean": "rm data/* && touch data/.gitkeep",
     "fetch": "./fetch.sh",
-    "convert": "cd convert && node --loader ts-node/esm index.ts",
+    "convert": "cd convert && ts-node index.ts",
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "buildonly": "vite build",
