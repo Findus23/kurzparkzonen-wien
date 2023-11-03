@@ -1,5 +1,5 @@
-import "leaflet-control-geocoder/dist/Control.Geocoder.js";
-import "leaflet-control-geocoder/dist/Control.Geocoder.css";
+// import "leaflet-control-geocoder/dist/Control.Geocoder.js";
+// import "leaflet-control-geocoder/dist/Control.Geocoder.css";
 //@ts-ignore
 import {GeocodingResult, NominatimResult} from "leaflet-control-geocoder/dist/geocoders";
 // @ts-ignore
