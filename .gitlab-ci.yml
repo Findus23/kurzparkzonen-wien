@@ -54,10 +54,10 @@ fetch_data:
   before_script:
     - apt-get update
     - DEBIAN_FRONTEND=noninteractive apt-get install curl jq -y
-    - yarn install --pure-lockfile --ignore-engines
+    - npm ci
   script:
     - ./fetch.sh
-    - yarn run convert
+    - npm run convert
   artifacts:
     paths:
       - processed/
@@ -70,8 +70,8 @@ webpack:
   stage: website_build
   image: node
   before_script:
-  - yarn install --pure-lockfile --ignore-engines
-  script: yarn run build
+  - npm ci
+  script: npm run build
   artifacts:
     paths:
       - dist/
