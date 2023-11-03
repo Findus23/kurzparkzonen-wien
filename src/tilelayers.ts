@@ -27,6 +27,12 @@ const BasemapATbasemap = L.tileLayer(basemap_url, {
     format: "png",
     bounds: [[46.35877, 8.782379], [49.037872, 17.189532]]
 } as CustomTileLayerOptions);
+
+const tracestack = L.tileLayer('https://maps.lw1.at/tiles/1.0.0/tracestack/webmercator_hq/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: 'Data: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, <a href="https://worldcover2021.esa.int">ESA WorldCover</a>; Maps © <a href="https://www.tracestrack.com/">Tracestrack</a>'
+} as CustomTileLayerOptions);
+
 const ThunderforestTransport = L.tileLayer("https://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png?apikey={apikey}", {
     attribution: '&copy; <a href="https://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     apikey: import.meta.env.VITE_API_KEY,
@@ -76,6 +82,7 @@ const BasemapATorthofoto = L.tileLayer("https://maps.lw1.at/tiles/1.0.0/basemap_
 export const mapLayers = {
     "Leer": blankLayer,
     "Basemap.at": BasemapATbasemap,
+    "Tracestack": tracestack,
     "Standard-OSM": OpenStreetMapMapnik,
     "Wanderkarte": ThunderforestOutdoors,
     "Fahrradkarte": CyclOSM,
