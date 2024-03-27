@@ -3,7 +3,7 @@
     "target": "ES2018",
     "module": "ES2020",
     "isolatedModules": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "lib": [
       "dom",
       "es5"
