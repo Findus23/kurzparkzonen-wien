@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Kurzparkzonen-Wien",
   "main": "index.js",
+  "type": "module",
   "dependencies": {
     "@mapbox/geojson-merge": "^1.0.2",
     "eslint": "^8.8.0",
@@ -21,11 +22,11 @@
     "@types/geojson": "^7946.0.7",
     "@types/leaflet": "^1.4.4",
     "@types/leaflet.locatecontrol": "^0.74.0",
-    "@types/node": "^18.11.9",
+    "@types/node": "^20.11.30",
     "@types/topojson-client": "^3.0.0",
     "@types/topojson-server": "^3.0.0",
     "@types/topojson-simplify": "^3.0.0",
-    "@vitejs/plugin-legacy": "^4.0.2",
+    "@vitejs/plugin-legacy": "^5.3.2",
     "autoprefixer": "^10.1.0",
     "ejs": "^3.1.6",
     "rome": "^12.0.0",
@@ -33,7 +34,7 @@
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^4.1.0",
     "typescript": "^5.0.4",
-    "vite": "^4.0.4",
+    "vite": "^5.2.6",
     "vite-plugin-precompiled-ejs": "^1.0.1"
   },
   "scripts": {
