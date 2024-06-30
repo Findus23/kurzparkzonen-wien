@@ -65,7 +65,7 @@ function mapInit() {
     a.on('markgeocode', function (e: any) {
         const result = e.geocode as GeocodingResult
         const html = searchPopupHtml(result.properties, "searchPopupTemplate", result.icon)
-        const marker = new L.CircleMarker(result.center)
+        const marker = new L.CircleMarker(result.center, {radius: 10})
             .bindPopup(html)
             .addTo(map)
             .openPopup();
