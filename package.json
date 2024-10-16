@@ -30,7 +30,7 @@
     "autoprefixer": "^10.1.0",
     "ejs": "^3.1.6",
     "rome": "^12.0.0",
-    "sass": "^1.49.9",
+    "sass-embedded": "^1.49.9",
     "tsx": "^4.7.2",
     "tsconfig-paths": "^4.1.0",
     "typescript": "^5.0.4",
