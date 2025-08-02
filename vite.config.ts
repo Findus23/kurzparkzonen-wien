@@ -1,6 +1,5 @@
 import {defineConfig, Plugin, TransformResult} from 'vite'
 import {compile} from "ejs"
-import legacy from '@vitejs/plugin-legacy'
 
 const fileRegex = /\.(ejs)$/
 
@@ -38,12 +37,10 @@ export function ejsPlugin(): Plugin {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [ejsPlugin(), legacy({
-        targets: ['defaults', 'not IE 11']
-    })],
+    plugins: [ejsPlugin()],
     base: "./",
     build: {
-        target: "es2018",
+        target: "es2020",
     },
 
 })

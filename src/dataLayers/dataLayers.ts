@@ -9,8 +9,9 @@ import {fusgangerLayer} from "./fusganger";
 import {garagenLayer} from "./garagen";
 import {tempo30Layer} from "./tempo30";
 import {verkaufsstellenLayer} from "./verkaufsstellen";
+import {GeoJSON} from "leaflet";
 
-export const dataLayers: { [s: string]: L.GeoJSON } = {
+export const dataLayers: { [s: string]: GeoJSON } = {
     "Parkzonen": parkzonenLayer,
     "Parkstreifen": parkstreifenLayer,
     "Verkaufsstellen": verkaufsstellenLayer,

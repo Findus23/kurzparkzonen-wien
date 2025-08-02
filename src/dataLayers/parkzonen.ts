@@ -1,7 +1,7 @@
 import {getPopupText} from "../popup";
 import {attribution} from "../attribution";
 import {TopoJsonLayer} from "../topoJsonLayer";
-import {PathOptions} from "leaflet";
+import {GeoJSON, PathOptions} from "leaflet";
 import {Feature} from "../interfaces";
 import {GeoJsonObject} from "geojson";
 
@@ -19,7 +19,7 @@ const darkStyle: PathOptions = {
 export const parkzonenLayer = new TopoJsonLayer(<unknown>[] as GeoJsonObject, {
     style: normalStyle,
     pane: "zonenPane",
-    onEachFeature: function (feature: Feature, layer: L.GeoJSON) {
+    onEachFeature: function (feature: Feature, layer: GeoJSON) {
         layer.on({
             popupopen: function () {
                 layer.setStyle(darkStyle);

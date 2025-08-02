@@ -1,4 +1,4 @@
-import L, {PathOptions} from "leaflet";
+import {GeoJSON, PathOptions} from "leaflet";
 import {getPopupText} from "../popup";
 import {attribution} from "../attribution";
 import {Feature} from "../interfaces";
@@ -15,9 +15,9 @@ const activeStyle: PathOptions = {
     weight: 7
 };
 
-export const parkstreifenLayer = new L.GeoJSON(<unknown>[] as GeoJsonObject, {
+export const parkstreifenLayer = new GeoJSON(<unknown>[] as GeoJsonObject, {
     style: normalStyle,
-    onEachFeature: function (feature: Feature, layer: L.GeoJSON) {
+    onEachFeature: function (feature: Feature, layer: GeoJSON) {
         layer.on({
             popupopen: function () {
                 layer.setStyle(activeStyle);

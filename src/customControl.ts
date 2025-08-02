@@ -1,14 +1,16 @@
 import * as L from "leaflet";
+import {Control, GeoJSON, Layer, Map, TileLayer} from "leaflet";
 import {dataLayers} from "./dataLayers/dataLayers";
 import {mapLayers} from "./tilelayers";
+import Layers = Control.Layers;
 
-function loadLayerData(layers: [SomeLayerObject], map: L.Map) {
+function loadLayerData(layers: [SomeLayerObject], map: Map) {
 
     layers.forEach((obj: SomeLayerObject) => {
         if (!obj.overlay || !map.hasLayer(obj.layer)) {
             return false
         }
-        if (obj.layer instanceof L.TileLayer) {
+        if (obj.layer instanceof TileLayer) {
             // no data needs to be loaded as it is a TileLayer
             return true
         }
@@ -84,11 +86,10 @@ function loadLayerData(layers: [SomeLayerObject], map: L.Map) {
         }
     });
 }
-
-L.Control.Layers.include({
+Layers.include({
     saveLayers: function () {
         // create hash to hold all layers
-        const overlayLayers: L.GeoJSON[] = [];
+        const overlayLayers: GeoJSON[] = [];
         let enabledMapLayer;
 
         // loop through all layers in control
@@ -141,15 +142,15 @@ L.Control.Layers.include({
 
 });
 
-export interface CustomControl extends L.Control.Layers {
+export interface CustomControl extends Layers {
     saveLayers(): void,
 
-    restoreLayers(): [L.GeoJSON]
+    restoreLayers(): [GeoJSON]
 }
 
 export interface SomeLayerObject {
     name: string,
-    layer: L.Layer,
+    layer: Layer,
     overlay: undefined
 
 }

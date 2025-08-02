@@ -1,4 +1,4 @@
-import L from "leaflet";
+import {CircleMarker, Control, Map, Popup} from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.locatecontrol/dist/L.Control.Locate.css";
 
@@ -10,11 +10,13 @@ import "./customControl";
 import {CustomControl} from "./customControl";
 import "leaflet-control-geocoder";
 import "leaflet-control-geocoder/dist/Control.Geocoder.css";
-import {GeocodingResult, NominatimResult} from "leaflet-control-geocoder/dist/geocoders";
 import {ExtendedMap} from "./interfaces";
 import "leaflet.locatecontrol";
 
 import {searchPopupHtml} from "./searchPopup";
+import {LocateControl} from "leaflet.locatecontrol";
+import {Geocoder} from "leaflet-control-geocoder";
+import Layers = Control.Layers;
 
 
 if (import.meta.env.PROD) {
@@ -22,10 +24,10 @@ if (import.meta.env.PROD) {
 }
 
 function mapInit() {
-    const map: ExtendedMap = L.map("map").setView([48.203527523471344, 16.37383544767511], 12);
+    const map: ExtendedMap = new Map("map").setView([48.203527523471344, 16.37383544767511], 12);
     window.map = map;
     const optionalLayers = Object.assign(dataLayers, optionalMapLayers);
-    const control = L.control.layers(mapLayers, optionalLayers).addTo(map) as CustomControl;
+    const control = new Layers(mapLayers, optionalLayers).addTo(map) as CustomControl;
 
 
     if (!control.restoreLayers()) {
@@ -40,32 +42,32 @@ function mapInit() {
         control.saveLayers();
     });
 
-    L.control.locate({
+    new LocateControl({
         locateOptions: {
             enableHighAccuracy: true
         }
     }).addTo(map);
     const viennabbox = ["48.1179069", "48.3226679", "16.181831", "16.5775132"]
     //@ts-ignore
-    const geocoder = L.Control.Geocoder.nominatim({
+    const geocoder = new Geocoder.nominatim({
         geocodingQueryParams: {
             bounded: 1,
             viewbox: `${viennabbox[3]},${viennabbox[1]},${viennabbox[2]},${viennabbox[0]}`
         },
-        htmlTemplate: function (r: NominatimResult) {
+        htmlTemplate: function (r:any) { // NominatimResult
             return searchPopupHtml(r, "searchDisplayTemplate", undefined)
         }
     })
     //@ts-ignore
-    const a = L.Control.geocoder({
+    const a = new Geocoder({
         defaultMarkGeocode: false,
         showResultIcons: true,
         geocoder: geocoder
     });
     a.on('markgeocode', function (e: any) {
-        const result = e.geocode as GeocodingResult
+        const result = e.geocode //as GeocodingResult
         const html = searchPopupHtml(result.properties, "searchPopupTemplate", result.icon)
-        const marker = new L.CircleMarker(result.center, {radius: 10})
+        const marker = new CircleMarker(result.center, {radius: 10})
             .bindPopup(html)
             .addTo(map)
             .openPopup();
@@ -84,7 +86,11 @@ if (isWebview && isOlderAndroid) {
 }
 
 function closePopup() {
-    const popupWasOpen = !!window.map._popup
+    let popupWasOpen = !!window.map._popup
+    if (popupWasOpen) {
+        const popup = window.map._popup as unknown as Popup;
+        popupWasOpen = popup!.isOpen()
+    }
     window.map.closePopup()
     return popupWasOpen
 }

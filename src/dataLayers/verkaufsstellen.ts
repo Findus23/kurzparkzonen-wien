@@ -1,12 +1,12 @@
-import L, {LatLng} from "leaflet";
+import {CircleMarker, GeoJSON, LatLng} from "leaflet";
 import {attribution} from "../attribution";
 import {getPopupText} from "../popup";
 import {GeoJsonObject} from "geojson";
 import {Feature} from "../interfaces";
 
-export const verkaufsstellenLayer = new L.GeoJSON(<unknown>[] as GeoJsonObject, {
+export const verkaufsstellenLayer = new GeoJSON(<unknown>[] as GeoJsonObject, {
     pointToLayer: function (feature: Feature, latlng: LatLng) {
-        return L.circleMarker(latlng, {
+        return new CircleMarker(latlng, {
             radius: 2,
             fillColor: "#9a311b",
             color: "#9a311b"
